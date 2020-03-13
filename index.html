@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<link rel="stylesheet" href="css/styles.css"/>
+
+<style>
+
+
+</style>
+<body>
+<nav>
+    <p>Оберіть тип платформи</p>
+    <div id="buttons">
+        <div>
+            <button id="craudf" class="button" >Краунфандінг</button>
+            <button id="budget" class="button">Громадський бюджет</button>
+        </div>
+        <div>
+            <button id="money" class="button" >Бюджет</button>
+            <button id="voices" class="button">Кількість голосів</button>
+        </div>
+
+    </div>
+
+
+    <p>Оберіть період</p>
+    <input type="range" min="2012" max="2020" step="1" data-values="2012 2020" multiple>
+    <ul id="select-year">
+        <li>2012</li>
+        <li>2013</li>
+        <li>2014</li>
+        <li>2015</li>
+        <li>2016</li>
+        <li>2017</li>
+        <li>2018</li>
+        <li>2019</li>
+        <li>2020</li>
+    </ul>
+
+    <ul id="legend">
+        <li><span style="background-color: #5CE577"></span>Культурний</li>
+        <li><span style="background-color: purple"></span>Соціальний</li>
+        <li><span style="background-color: #EAEDA0"></span>Людський</li>
+        <li><span style="background-color: #EB6AC2"></span>Інфраструктурний</li>
+        <li><span style="background-color: #4A80FF"></span>Економічний</li>
+    </ul>
+
+</nav>
+
+
+
+<div id="chart"></div>
+
+
+<script>
+    var elm = document.querySelector('input');
+    var input_wrapper = elm.parentNode;
+    var values = elm.getAttribute('data-values').split(' ');
+
+    values.forEach(function (value, i, values) {
+        var rangePart = elm.cloneNode();
+        rangePart.type = 'range';
+        rangePart.removeAttribute('data-values');
+        rangePart.value = value;
+        rangePart = input_wrapper.insertBefore(rangePart, elm);
+    });
+
+    elm.remove();
+</script>
+
+
+
+<script src="lib/d3v5.min.js"></script>
+<script src="lib/underscore-min.js"></script>
+<script src="js/main.js"></script>
+<script src="js/barcharts.js"></script>
+</body>
+</html>
