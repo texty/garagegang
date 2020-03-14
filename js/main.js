@@ -73,26 +73,10 @@ d3.csv("data/data.csv").then(function(data){
 
 
 const width = window.innerWidth >= 1200 ? 1200: window.innerWidth * 0.9;
-
 const columns = Math.floor(width/300);
 
 
-
-
-
-
-//
-// const y = d3.scaleLinear()
-//     .domain([-200, 200])
-//     .range([150, 0]);
-//
-// const x = d3.scaleBand()
-//     .range([0, 150])
-//     .padding(0.3);
-
-
 var draw = function(df, yearStart, yearEnd, yCount){
-
     d3.selectAll("#chart svg").remove();
 
     var multiplenest;
@@ -123,11 +107,8 @@ var draw = function(df, yearStart, yearEnd, yCount){
         })
         .entries(filtered);
 
-        console.log(nested.length);
 
-    const height = nested.length / columns * 350;
-
-
+    const height = nested.length / columns * 400;
     const container =  d3.select("#chart")
         .append("svg")
         .attr("width", width)
@@ -162,7 +143,7 @@ var draw = function(df, yearStart, yearEnd, yCount){
         .style("text-anchor", "middle");
 
 
-    const bars = multiple
+    multiple
         .append('g')
         .attr("transform", "translate(" + 0 + "," + 30 + ")")
         .datum(function (d) {
@@ -171,69 +152,6 @@ var draw = function(df, yearStart, yearEnd, yCount){
         .call(
             drawBars()
         );
-
-    // const positive_bars = bars.append("g")
-    //     .attr("class", "positive")
-    //     .data(function (d) {
-    //         return d.key === "Успішний"
-    //     });
-    //
-    //
-    // const negative_bars = bars.append("g")
-    //     .attr("class", "negative")
-    //     .datum(function (d) {
-    //         return d.key === "Неуспішний"
-    //     });
-    //
-    //     positive_bars
-    //         //.enter()
-    //         .append("rect")
-    //         .attr("class", "positive-bar")
-    //         .attr("width", x.bandwidth())
-    //         .attr("x", function(d) {
-    //             return x(d.key)
-    //         })
-    //         .attr("rx", 6)
-    //         .attr("ry", 6)
-    //         .attr("fill", function(d) {
-    //             return color(d.key) })
-    //         .attr("y", chartheight)
-    //         .transition()
-    //         .duration(500)
-    //         .attr('y', function(k) {
-    //
-    //             return y(k.values.length);
-    //         })
-    //         .attr('height', function(k,i){ return chartheight - y(k.values.length); });
-    //
-    //
-    //     negative_bars
-    //         //.enter()
-    //         .append("rect")
-    //         .attr("class", "negative-bar")
-    //         .attr("width", x.bandwidth())
-    //         .attr("x", function(d) {
-    //             return x(d.key)
-    //         })
-    //         .attr("rx", 6)
-    //         .attr("ry", 6)
-    //         .attr("fill", function(d) { return color(d.key) })
-    //         .attr("y", chartheight)
-    //         .transition()
-    //         .duration(500)
-    //         .attr('y', chartheight + 20 )
-    //         .attr('height', function(k,i){ return chartheight - y(k.values.length); });
-    //
-    //
-    //
-    //     positive_bars.exit().remove();
-    //     negative_bars.exit().remove();
-
-
-
-    console.log("---------");
-
-
 };
 
 
