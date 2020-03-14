@@ -2,9 +2,15 @@
   outline: none; }
 
 body {
-  background-color: #0D263C; }
+  background-color: #0D263C;
+  font-family: "Arial", sans-serif; }
 
 nav {
+  background-color: #0D263C;
+  position: sticky;
+  top: 0;
+  left: 10px;
+  padding-top: 10px;
   height: max-content;
   color: #1381B5;
   width: 100%;
@@ -18,12 +24,13 @@ nav {
       display: flex;
       justify-content: space-between; }
   nav input[type='range'] {
-    width: 100%; }
+    width: 1200px; }
   nav ul {
-    padding: 0;
+    padding: 10px 0;
     list-style-type: none;
     width: 100%;
-    display: flex; }
+    display: flex;
+    flex-wrap: wrap; }
   nav ul#select-year {
     justify-content: space-between; }
   nav ul#legend {
@@ -53,6 +60,8 @@ nav {
   nav button:active {
     position: relative;
     top: 4px; }
+  nav button.active {
+    background-color: #3F627F; }
 
 #chart {
   display: flex; }
@@ -62,22 +71,5 @@ svg {
 
 svg text {
   font-family: "Arial", sans-serif; }
-
-input[type="range"][multiple] {
-  display: block;
-  height: 2em;
-  margin: 0;
-  pointer-events: none; }
-  input[type="range"][multiple] + input[type="range"][multiple] {
-    margin-top: -2em; }
-
-input[type="range"]::-webkit-slider-thumb {
-  pointer-events: all; }
-
-input[type="range"]::-moz-range-thumb {
-  pointer-events: all; }
-
-input[type="range"]::-ms-thumb {
-  pointer-events: all; }
 
 /*# sourceMappingURL=styles.css.map */

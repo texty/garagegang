@@ -5,9 +5,23 @@
     <title>Title</title>
 </head>
 
+<!--<link rel="stylesheet" href="css/d3RangeSlider.css"/>-->
+<link rel="stylesheet" href="css/rSlider.css">
+
+<script src="lib/rSlider.js"></script>
 <link rel="stylesheet" href="css/styles.css"/>
 
+
 <style>
+    #slider-container {
+        position: relative;
+        height:15px;
+        background-color: #eeeef5;
+    }
+
+    #range {
+        width: 100%;
+    }
 
 
 </style>
@@ -16,7 +30,7 @@
     <p>Оберіть тип платформи</p>
     <div id="buttons">
         <div>
-            <button id="craudf" class="button" >Краунфандінг</button>
+            <button id="craudf" class="button active" >Краунфандінг</button>
             <button id="budget" class="button">Громадський бюджет</button>
         </div>
         <div>
@@ -28,25 +42,17 @@
 
 
     <p>Оберіть період</p>
-    <input type="range" min="2012" max="2020" step="1" data-values="2012 2020" multiple>
-    <ul id="select-year">
-        <li>2012</li>
-        <li>2013</li>
-        <li>2014</li>
-        <li>2015</li>
-        <li>2016</li>
-        <li>2017</li>
-        <li>2018</li>
-        <li>2019</li>
-        <li>2020</li>
-    </ul>
+    <!--<div id="slider-container"></div>-->
+    <input type="text" id="slider" class="slider">
 
+
+    <p>Тип капіталу</p>
     <ul id="legend">
         <li><span style="background-color: #5CE577"></span>Культурний</li>
-        <li><span style="background-color: purple"></span>Соціальний</li>
+        <li><span style="background-color: #4A80FF"></span>Соціальний</li>
         <li><span style="background-color: #EAEDA0"></span>Людський</li>
         <li><span style="background-color: #EB6AC2"></span>Інфраструктурний</li>
-        <li><span style="background-color: #4A80FF"></span>Економічний</li>
+        <li><span style="background-color: purple"></span>Економічний</li>
     </ul>
 
 </nav>
@@ -56,27 +62,21 @@
 <div id="chart"></div>
 
 
-<script>
-    var elm = document.querySelector('input');
-    var input_wrapper = elm.parentNode;
-    var values = elm.getAttribute('data-values').split(' ');
-
-    values.forEach(function (value, i, values) {
-        var rangePart = elm.cloneNode();
-        rangePart.type = 'range';
-        rangePart.removeAttribute('data-values');
-        rangePart.value = value;
-        rangePart = input_wrapper.insertBefore(rangePart, elm);
-    });
-
-    elm.remove();
-</script>
 
 
 
 <script src="lib/d3v5.min.js"></script>
 <script src="lib/underscore-min.js"></script>
+<!--<script src="lib/d3RangeSlider.js"></script>-->
+
 <script src="js/main.js"></script>
 <script src="js/barcharts.js"></script>
+
+
+<script>
+
+
+
+</script>
 </body>
 </html>

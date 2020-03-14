@@ -5,16 +5,21 @@ $multiRangeHeight: 2em;
 }
 body {
   background-color: #0D263C;
+  font-family: "Arial", sans-serif;
 }
 
 
 nav {
+  background-color: #0D263C;
+  position: sticky;
+  top: 0;
+  left: 10px;
+  padding-top: 10px;
   height: max-content;
   color: #1381B5;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto 50px auto;
-
 
   #buttons {
     display: flex;
@@ -29,15 +34,16 @@ nav {
 
 
   input[type='range']{
-    width: 100%;
+    width: 1200px;
   }
 
 
   ul {
-    padding: 0;
+    padding: 10px 0;
     list-style-type: none;
     width: 100%;
     display: flex;
+    flex-wrap: wrap;
   }
 
   ul#select-year {
@@ -64,7 +70,7 @@ nav {
   button.button {
     font-family: inherit;
     margin: 20px 5px;
-    background-color:#1381B5;;
+    background-color:#1381B5;
     border: 0;
     display:inline-block;
     cursor:pointer;
@@ -84,12 +90,11 @@ nav {
     position:relative;
     top:4px;
   }
+
+  button.active{
+    background-color:#3F627F;
+  }
 }
-
-
-
-
-
 
 #chart {
   display: flex;
@@ -103,27 +108,3 @@ svg text {
   font-family: "Arial", sans-serif;
 }
 
-
-input[type="range"][multiple] {
-  display: block;
-  height: $multiRangeHeight;
-  margin: 0;
-  pointer-events: none;
-
-  & + input[type="range"][multiple] {
-    margin-top: $multiRangeHeight * -1;
-  }
-}
-
-@mixin multirange-thumb {
-  pointer-events: all;
-}
-input[type="range"]::-webkit-slider-thumb {
-  @include multirange-thumb;
-}
-input[type="range"]::-moz-range-thumb {
-  @include multirange-thumb;
-}
-input[type="range"]::-ms-thumb {
-  @include multirange-thumb;
-}

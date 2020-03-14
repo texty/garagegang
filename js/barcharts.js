@@ -5,13 +5,11 @@ var drawBars = function () {
 
     const color = d3.scaleOrdinal()
         .domain(["Культурний", "Соціальний","Людський", "Інфраструктурний","Економічний"])
-        .range(["#5CE577", "purple", "#EAEDA0", "#EB6AC2", "#4A80FF"]);
+        .range(["#5CE577", "#4A80FF", "#EAEDA0", "#EB6AC2", "purple"]);
 
     const chartheight = 150;
 
-    const y = d3.scaleLinear()
-        .domain([-150, 150])
-        .range([150, 0]);
+    //console.log("---------");
 
     const x = d3.scaleBand()
         .range([0, 150])
@@ -20,15 +18,42 @@ var drawBars = function () {
 
     function chart(selection) {
         selection.each(function (data) {
-      
+
+
             var G = d3.select(this);
 
+            //успішні
             const succsess = data.filter(function(c) {
                 return c.key === "Успішний"});
 
+            //неуспішні
             const unsuccsess = data.filter(function(c) {
                 return c.key === "Неуспішний"
             });
+
+            //заг. сума для конкретного графіка, її будемо рахувати за 100%;
+            var totalAmount = 0;
+
+            //максимальне значення для y domain
+            var maxValue = 0;
+
+
+            succsess[0].values.forEach(function(d){
+                totalAmount = totalAmount + +d.value;
+                maxValue = +d.value > maxValue ? +d.value: maxValue;
+           });
+
+            unsuccsess[0].values.forEach(function(d){
+                totalAmount = totalAmount + +d.value;
+                maxValue = +d.value > maxValue ? +d.value: maxValue;
+            });
+
+            //console.log(totalAmount);
+
+
+            const y = d3.scaleLinear()
+                .domain([0, 100])
+                .range([150, 0]);
 
             const positive_bars = G.selectAll(".positive-bar")
                 .data(succsess[0].values);
@@ -49,12 +74,19 @@ var drawBars = function () {
                     return color(d.key)
                 })
                 .attr("y", chartheight)
+                .on("click", function(k){
+                   console.log(k.value );
+                   console.log(k.value / (totalAmount/100));
+                })
                 .transition()
                 .duration(500)
                 .attr('y', function(k) {
-                    return y(k.values.length);
+                    return y(k.value / (totalAmount/100));
                 })
-                .attr('height', function(k,i){ return chartheight - y(k.values.length); });
+                .attr('height', function(k){
+                    return chartheight - y(k.value / (totalAmount/100));
+                });
+
 
 
             negative_bars.enter()
@@ -71,12 +103,14 @@ var drawBars = function () {
                 .transition()
                 .duration(500)
                 .attr('y', chartheight + 20 )
-                .attr('height', function(k){ return k.values[0].platform_type === "Краудфандинг"? chartheight - y(k.values.length) : 0; });
+                .attr('height', function(k){
+                    //return k.values[0].platform_type === "Краудфандинг"? chartheight - y(k.value) : 0;
+                    return chartheight - y(k.value / (totalAmount/100));
+                });
 
         });
 
     }
-
     return chart;
 
 };
