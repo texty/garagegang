@@ -8,13 +8,18 @@ body {
   font-family: "Arial", sans-serif;
 }
 
+p {
+  margin: 5px 0;
+
+}
+
 
 nav {
   background-color: #0D263C;
   position: sticky;
   top: 0;
   left: 10px;
-  padding-top: 10px;
+  padding-top: 2px;
   height: max-content;
   color: #1381B5;
   width: 100%;
@@ -69,8 +74,8 @@ nav {
 
   button.button {
     font-family: inherit;
-    margin: 20px 5px;
-    background-color:#1381B5;
+    margin: 10px 5px;
+    background-color:#3F627F;
     border: 0;
     display:inline-block;
     cursor:pointer;
@@ -83,7 +88,7 @@ nav {
   }
 
   button:hover {
-    background-color:#3F627F;
+    background-color:#1381B5;;
   }
 
   button:active {
@@ -92,7 +97,7 @@ nav {
   }
 
   button.active{
-    background-color:#3F627F;
+    background-color: #1381B5;
   }
 }
 
@@ -106,5 +111,14 @@ svg {
 
 svg text {
   font-family: "Arial", sans-serif;
+}
+
+path.domain, g.tick line {
+  stroke: #1381B5
+}
+
+ g.tick text {
+   display: none;
+  fill: #1381B5
 }
 

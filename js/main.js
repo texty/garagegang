@@ -15,7 +15,7 @@ d3.csv("data/data.csv").then(function(data){
     var startYear = '2016', endYear = '2019';
 
     //голоси чи гроші
-    var yCount = "engaged_number";
+    var yCount = "collected_amount";
 
     var mySlider = new rSlider({
         target: '#slider',
@@ -95,7 +95,6 @@ var draw = function(df, yearStart, yearEnd, yCount){
         });
     }
 
-
     var nested = d3.nest()
         .key(function(d) { return d[multiplenest]; })
         .key(function(d) { return d.status; })
@@ -108,12 +107,13 @@ var draw = function(df, yearStart, yearEnd, yCount){
         .entries(filtered);
 
 
-    const height = nested.length / columns * 400;
+    const height = nested.length / columns * 450;
     const container =  d3.select("#chart")
         .append("svg")
         .attr("width", width)
         .attr("height", height)
-        .append("g");
+        .append("g")
+        .attr("transform", "translate(" + 50 + "," + 0 + ")");
 
 
     /* якщо немає успішного чи неуспішного, не малюються бари, додаємо відсутній*/
@@ -130,7 +130,7 @@ var draw = function(df, yearStart, yearEnd, yCount){
         .attr("class", "multiple")
         .attr("transform", function(d, i){
            var xshift = (i % columns) * 300;
-           var yshift = ~~(i / columns) * 400;
+           var yshift = ~~(i / columns) * 450;
            return "translate(" + xshift + "," + yshift + ")"} );
 
 
@@ -143,15 +143,22 @@ var draw = function(df, yearStart, yearEnd, yCount){
         .style("text-anchor", "middle");
 
 
+    
+    var neg_y = d3.scaleLinear();
+
     multiple
         .append('g')
-        .attr("transform", "translate(" + 0 + "," + 30 + ")")
+        .attr("transform", "translate(" + 0 + "," + 50 + ")")
         .datum(function (d) {
             return d.values
          })
         .call(
-            drawBars()
+            drawBars(multiplenest, yCount)
         );
+
+   
+
+    
 };
 
 
