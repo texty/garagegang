@@ -74,13 +74,14 @@
     position: absolute;
     top: 5px;
     white-space: nowrap;
+    display: flex;
 }
 .rs-container .rs-scale span {
-    float: left;
+    float: none;
     position: relative;
 }
  .rs-container .rs-scale span::before {
-    //background-color: #ededed;
+    background-color: #3F627F;
     content: "";
     height: 8px;
     left: 0;

@@ -29,10 +29,14 @@ nav {
   #buttons {
     display: flex;
     justify-content: space-between;
+    @media(max-width: 800px){
+      display: block;
+    }
 
     div {
       width: max-content;
       display: flex;
+      align-items: center;
       justify-content: space-between;
     }
   }
@@ -44,7 +48,8 @@ nav {
 
 
   ul {
-    padding: 10px 0;
+    padding: 0;
+    margin: 0;
     list-style-type: none;
     width: 100%;
     display: flex;
@@ -58,9 +63,11 @@ nav {
 
   ul#legend {
     justify-content: flex-start;
+    margin: 10px 0;
 
     li {
       margin-right: 20px;
+      margin-bottom: 5px;
 
       span {
         display: inline-block;
@@ -81,7 +88,7 @@ nav {
     cursor:pointer;
     font-size:15px;
     font-weight:bold;
-    padding: 7px;
+    padding: 4px;
     text-decoration:none;
     text-transform: uppercase;
     color: white;
@@ -96,9 +103,13 @@ nav {
     top:4px;
   }
 
-  button.active{
+  button.active {
     background-color: #1381B5;
   }
+
+
+  .rs-scale span:nth-child(odd) ins { opacity: 0}
+
 }
 
 #chart {
@@ -121,4 +132,16 @@ path.domain, g.tick line {
    display: none;
   fill: #1381B5
 }
+
+.multiple {
+  .axis-hint {
+    display: none;
+  }
+}
+
+ .multiple:nth-of-type(1) {
+   .axis-hint {
+     display: block;
+   }
+ }
 

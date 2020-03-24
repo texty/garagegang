@@ -2,38 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Title</title>
+
+
+    <link rel="stylesheet" href="css/rSlider.css">
+    <script src="lib/rSlider.js"></script>
+    <link rel="stylesheet" href="css/styles.css"/>
 </head>
-
-<!--<link rel="stylesheet" href="css/d3RangeSlider.css"/>-->
-<link rel="stylesheet" href="css/rSlider.css">
-
-<script src="lib/rSlider.js"></script>
-<link rel="stylesheet" href="css/styles.css"/>
-
-
-<style>
-    #slider-container {
-        position: relative;
-        height:15px;
-        background-color: #eeeef5;
-    }
-
-    #range {
-        width: 100%;
-    }
-
-
-</style>
 <body>
 <nav>
-    <p>Оберіть тип платформи</p>
+
     <div id="buttons">
         <div>
+            <p>Оберіть тип платформи:</p>
             <button id="craudf" class="button active" >Краунфандінг</button>
             <button id="budget" class="button">Громадський бюджет</button>
         </div>
         <div>
+            <p>Оберіть голоси або гроші:</p>
             <button id="money" class="button active" >Бюджет</button>
             <button id="voices" class="button">Кількість голосів</button>
         </div>
@@ -41,19 +29,22 @@
     </div>
 
 
-    <p>Оберіть період</p>
+    <p>Оберіть період: </p>
+        <input type="text" id="slider" class="slider">
     <!--<div id="slider-container"></div>-->
-    <input type="text" id="slider" class="slider">
 
 
-    <p>Тип капіталу</p>
+
+
     <ul id="legend">
+        <li>Тип капіталу:</li>
         <li><span style="background-color: #5CE577"></span>Культурний</li>
         <li><span style="background-color: #4A80FF"></span>Соціальний</li>
         <li><span style="background-color: #EAEDA0"></span>Людський</li>
         <li><span style="background-color: #EB6AC2"></span>Інфраструктурний</li>
-        <li><span style="background-color: purple"></span>Економічний</li>
+        <li><span style="background-color: white"></span>Економічний</li>
     </ul>
+
 
 </nav>
 

@@ -35,10 +35,7 @@ d3.csv("data/data.csv").then(function(data){
         }
     });
 
-
-    //draw(craudf, startYear, endYear, yCount);
-
-    d3.selectAll("#budget").on("click", function(e){
+   d3.selectAll("#budget").on("click", function(e){
         d3.select(this).classed("active", true);
         d3.select("#craudf").classed("active", false);
         currentData = budget;
@@ -66,18 +63,23 @@ d3.csv("data/data.csv").then(function(data){
         draw(currentData, startYear, endYear, yCount);
     });
 
-
+    window.addEventListener("resize", function(){
+        draw(currentData, startYear, endYear, yCount)
+    });
 
 });
 
 
 
-const width = window.innerWidth >= 1200 ? 1200: window.innerWidth * 0.9;
-const columns = Math.floor(width/300);
+
 
 
 var draw = function(df, yearStart, yearEnd, yCount){
     d3.selectAll("#chart svg").remove();
+
+    const width = window.innerWidth >= 1200 ? 1200: window.innerWidth * 0.9;
+    const columns = Math.floor(width/250);
+    const one_h = df[0].platform_type === "Краудфандинг"? 500 : 300;
 
     var multiplenest;
     var filtered;
@@ -107,7 +109,7 @@ var draw = function(df, yearStart, yearEnd, yCount){
         .entries(filtered);
 
 
-    const height = nested.length / columns * 450;
+    const height = nested.length / columns * (one_h+ 50);
     const container =  d3.select("#chart")
         .append("svg")
         .attr("width", width)
@@ -130,7 +132,7 @@ var draw = function(df, yearStart, yearEnd, yCount){
         .attr("class", "multiple")
         .attr("transform", function(d, i){
            var xshift = (i % columns) * 300;
-           var yshift = ~~(i / columns) * 450;
+           var yshift = ~~(i / columns) * one_h;
            return "translate(" + xshift + "," + yshift + ")"} );
 
 
@@ -155,10 +157,6 @@ var draw = function(df, yearStart, yearEnd, yCount){
         .call(
             drawBars(multiplenest, yCount)
         );
-
-   
-
-    
 };
 
 
