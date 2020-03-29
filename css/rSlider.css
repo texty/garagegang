@@ -70,11 +70,13 @@
     transition: none;
 }
 .rs-container .rs-scale {
+    width: 100%;
     left: 0;
     position: absolute;
     top: 5px;
     white-space: nowrap;
     display: flex;
+    justify-content: space-between;
 }
 .rs-container .rs-scale span {
     float: none;
@@ -93,12 +95,14 @@
     display: none;
 }
 .rs-container.rs-noscale span:first-child::before,
+
 .rs-container.rs-noscale span:last-child::before {
     display: block;
 }
 .rs-container .rs-scale span:last-child {
-    margin-left: -1px;
-    width: 0px;
+    /*display: none;*/
+    /*margin-left: -1px;*/
+    /*width: 0px;*/
 }
 .rs-container .rs-scale span ins {
     //color: #333;

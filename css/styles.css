@@ -75,8 +75,18 @@ nav {
   nav .rs-scale span:nth-child(odd) ins {
     opacity: 0; }
 
+#chart-wrapper {
+  max-width: 1250px;
+  width: 100%;
+  margin: auto; }
+
 #chart {
-  display: flex; }
+  align-self: center;
+  justify-self: center;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 250px);
+  flex-wrap: wrap; }
 
 svg {
   margin: auto; }
@@ -96,5 +106,81 @@ g.tick text {
 
 .multiple:nth-of-type(1) .axis-hint {
   display: block; }
+
+#wrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto 50px auto; }
+
+table {
+  width: 100%;
+  color: #1381B5;
+  table-layout: fixed; }
+
+table.dataTable tbody tr {
+  background-color: transparent; }
+
+.pager {
+  color: white; }
+
+table td {
+  text-align: center; }
+
+th {
+  position: relative;
+  letter-spacing: 1px;
+  padding: 5px;
+  padding-bottom: 30px; }
+  th p {
+    text-transform: uppercase;
+    display: inline-block;
+    margin-right: 10px; }
+  th select {
+    background-color: #0D263C;
+    color: #429ac4;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    top: calc(100% - 30px);
+    max-height: 100px;
+    overflow-y: auto;
+    padding-inline-start: 0;
+    text-align: left;
+    text-transform: capitalize;
+    margin: 0;
+    padding: 5px;
+    list-style-type: none; }
+    th select option {
+      font-size: 14px;
+      padding: 3px 0;
+      font-weight: 300; }
+
+table td:nth-child(1) {
+  text-align: left; }
+
+tbody > tr:nth-child(even) td {
+  color: #89c0da !important; }
+
+tbody > tr:nth-child(odd) {
+  background-color: #429ac4 !important; }
+
+tbody > tr:nth-child(odd) td {
+  border-top: 1px solid #429ac4 !important;
+  color: #0D263C; }
+
+option {
+  text-transform: lowercase;
+  color: #429ac4;
+  background-color: #0D263C; }
+
+ul.pagination li {
+  min-width: 30px;
+  background-color: white;
+  margin: 0 5px;
+  text-align: center;
+  cursor: pointer; }
+
+.hidden {
+  display: none; }
 
 /*# sourceMappingURL=styles.css.map */

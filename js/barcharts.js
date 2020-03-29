@@ -1,11 +1,12 @@
 /**
  * Created by yevheniia on 13.03.20.
  */
-var drawBars = function (multiplenest, yCount) {
+var drawBars = function (df, multiplenest, yCount) {
+    drawHeaders(df,  multiplenest);
+    drawT(df, multiplenest);
+    //d3.select("#table").html("");
 
-    const color = d3.scaleOrdinal()
-        .domain(["Культурний", "Соціальний","Людський", "Інфраструктурний","Економічний"])
-        .range(["#5CE577", "#4A80FF", "#EAEDA0", "#EB6AC2", "white"]);
+
 
     const formatValue = d3.format(".2s");
 
@@ -29,22 +30,24 @@ var drawBars = function (multiplenest, yCount) {
 
 
             //успішні
-            const succsess = data.filter(function(c) {
+            const succsess = data.values.filter(function(c) {
                 return c.key === "Успішний"});
 
             //неуспішні
-            const unsuccsess = data.filter(function(c) {
+            const unsuccsess = data.values.filter(function(c) {
                 return c.key === "Неуспішний"
             });
 
 
             succsess[0].values.forEach(function(d){
+                d.res = "Успішний";
                 if(d.value != 0) {
                     all_values.push(d);
                 }
            });
 
             unsuccsess[0].values.forEach(function(d){
+                d.res = "Неуспішний";
                 d.value = -Math.abs(d.value);
                 if(d.value != 0) {
                     all_values.push(d);
@@ -53,6 +56,7 @@ var drawBars = function (multiplenest, yCount) {
             });
 
             var maxValue = d3.max(all_values, function(d){ return d.value });
+
 
             var y = d3.scaleLinear()
                 .domain([-maxValue, maxValue])
@@ -89,7 +93,16 @@ var drawBars = function (multiplenest, yCount) {
                 .attr("ry", 4)
                 .attr("fill", function(d) {  return color(d.key) })
                 .attr('y', y(0))
-                .on("click", function(k){ console.log(k.value ); })
+                .on("click", function(k){
+                    var table_data = df.filter(function(d){
+                        return d.status === k.res  &&
+                            d[multiplenest] === data.key &&
+                            d.capital === k.key
+                    });
+
+
+                })
+
                 .transition()
                 .duration(500)
                 .attr("y",function(k){ return k.value < 0? y(0) + 5 : y(k.value)  })
@@ -117,17 +130,17 @@ var drawBars = function (multiplenest, yCount) {
             //додаємо вісі та підписи к ним
            const pos_y = G
                 .append("g")
-                .attr("transform", "translate(-10,0)")
+                .attr("transform", "translate(-20,0)")
                 .call(d3.axisRight(y_pos));
 
-           // pos_y.append("text")
-           //         .attr("x", -10)
-           //         .attr("y", -10)
-           //         .attr("dy", "0")
-           //         .attr("text-anchor", "start")
-           //         .style("font-size", "1.2em")
-           //         .style("fill", "#1381B5")
-           //         .text( yCount === "engaged_number"? maxValue : formatValue(maxValue));
+           pos_y.append("text")
+                   .attr("x", -10)
+                   .attr("y", -10)
+                   .attr("dy", "0")
+                   .attr("text-anchor", "start")
+                   .style("font-size", "1.2em")
+                   .style("fill", "#1381B5")
+                   .text( yCount === "engaged_number"? maxValue : formatValue(maxValue));
 
             pos_y.append("text")
                 .attr("class", "axis-hint")
@@ -146,7 +159,7 @@ var drawBars = function (multiplenest, yCount) {
             if(multiplenest === "platform") {
                 const neg_y = G
                     .append("g")
-                    .attr("transform", "translate(-10,10)")
+                    .attr("transform", "translate(-20,10)")
                     .call(d3.axisRight(y_neg));
 
                 neg_y.append("text")

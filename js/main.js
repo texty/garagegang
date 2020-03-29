@@ -1,12 +1,14 @@
 /**
  * Created by yevheniia on 13.03.20.
  */
-
+const color = d3.scaleOrdinal()
+    .domain(["Культурний", "Соціальний","Людський", "Інфраструктурний","Економічний"])
+    .range(["#5CE577", "#4A80FF", "#EAEDA0", "#EB6AC2", "white"]);
 
 d3.csv("data/data.csv").then(function(data){
     const craudf = data.filter(function(d){ return d.platform_type != "Громадський бюджет"});
     const budget = data.filter(function(d){ return d.platform_type === "Громадський бюджет"});
-
+    
 
     //обраний тип платформи
     var currentData = craudf;
@@ -63,9 +65,9 @@ d3.csv("data/data.csv").then(function(data){
         draw(currentData, startYear, endYear, yCount);
     });
 
-    window.addEventListener("resize", function(){
-        draw(currentData, startYear, endYear, yCount)
-    });
+    // window.addEventListener("resize", function(){
+      //draw(currentData, startYear, endYear, yCount);
+    // });
 
 });
 
@@ -77,6 +79,7 @@ d3.csv("data/data.csv").then(function(data){
 var draw = function(df, yearStart, yearEnd, yCount){
     d3.selectAll("#chart svg").remove();
 
+
     const width = window.innerWidth >= 1200 ? 1200: window.innerWidth * 0.9;
     const columns = Math.floor(width/250);
     const one_h = df[0].platform_type === "Краудфандинг"? 500 : 300;
@@ -87,17 +90,17 @@ var draw = function(df, yearStart, yearEnd, yCount){
     if(df[0].platform_type === "Краудфандинг"){
         multiplenest = "platform";
         filtered = df.filter(function(d) {
-            return +d.any_date >= yearStart && +d.any_date <= yearEnd
+            return +d.any_date >= yearStart && +d.any_date < yearEnd
         });
         
     } else {
         multiplenest = "location";
         filtered = df.filter(function(d) {
-            return +d.any_date >= yearStart && +d.any_date <= yearEnd && d.status === "Успішний"
+            return +d.any_date >= yearStart && +d.any_date < yearEnd && d.status === "Успішний"
         });
     }
 
-    var nested = d3.nest()
+     var nested = d3.nest()
         .key(function(d) { return d[multiplenest]; })
         .key(function(d) { return d.status; })
         .key(function(d) { return d.capital; })
@@ -111,11 +114,15 @@ var draw = function(df, yearStart, yearEnd, yCount){
 
     const height = nested.length / columns * (one_h+ 50);
     const container =  d3.select("#chart")
-        .append("svg")
-        .attr("width", width)
-        .attr("height", height)
-        .append("g")
-        .attr("transform", "translate(" + 50 + "," + 0 + ")");
+        // .append("svg")
+        // .attr("width", width)
+        // .attr("height", height)
+        //.append("div")
+        // .attr("width", 300)
+        // .attr("height", one_h)
+        // .append("g")
+        // .attr("transform", "translate(" + 50 + "," + 0 + ")")
+        ;
 
 
     /* якщо немає успішного чи неуспішного, не малюються бари, додаємо відсутній*/
@@ -125,15 +132,19 @@ var draw = function(df, yearStart, yearEnd, yCount){
         }
     });
 
+    nested.sort(function(a, b) { return d3.ascending(a.key, b.key) });
 
-    const multiple = container.selectAll("g")
+    const multiple = container.selectAll("svg")
         .data(nested).enter()
-        .append("g")
+        .append("svg")
         .attr("class", "multiple")
-        .attr("transform", function(d, i){
-           var xshift = (i % columns) * 300;
-           var yshift = ~~(i / columns) * one_h;
-           return "translate(" + xshift + "," + yshift + ")"} );
+            .attr("width", 250)
+    .attr("height", one_h)
+        // .attr("transform", function(d, i){
+        //    var xshift = (i % columns) * 300;
+        //    var yshift = ~~(i / columns) * one_h;
+        //    return "translate(" + xshift + "," + yshift + ")"} )
+        ;
 
 
     multiple
@@ -150,13 +161,12 @@ var draw = function(df, yearStart, yearEnd, yCount){
 
     multiple
         .append('g')
-        .attr("transform", "translate(" + 0 + "," + 50 + ")")
+        .attr("transform", "translate(" + 50 + "," + 50 + ")")
         .datum(function (d) {
-            return d.values
+            return d
          })
-        .call(
-            drawBars(multiplenest, yCount)
-        );
+        .call(drawBars(df, multiplenest, yCount));
+        
 };
 
 

@@ -6,12 +6,14 @@
 
     <title>Title</title>
 
-
+    <!-- Links-->
     <link rel="stylesheet" href="css/rSlider.css">
-    <script src="lib/rSlider.js"></script>
+    <link rel="stylesheet" href="css/jquery.dataTables.min.css"/>
     <link rel="stylesheet" href="css/styles.css"/>
 </head>
 <body>
+
+<div>
 <nav>
 
     <div id="buttons">
@@ -31,10 +33,6 @@
 
     <p>Оберіть період: </p>
         <input type="text" id="slider" class="slider">
-    <!--<div id="slider-container"></div>-->
-
-
-
 
     <ul id="legend">
         <li>Тип капіталу:</li>
@@ -44,30 +42,66 @@
         <li><span style="background-color: #EB6AC2"></span>Інфраструктурний</li>
         <li><span style="background-color: white"></span>Економічний</li>
     </ul>
-
-
 </nav>
 
 
+    <div id="chart-wrapper"><div id="chart"></div></div>
 
-<div id="chart"></div>
-
-
-
+</div>
 
 
+<div id="wrapper"></div>
+
+<!--		Start Pagination -->
+
+
+<div class='pagination-container' >
+    <nav>
+        <ul class="pagination">
+
+            <li data-page="prev" >
+                <span> < <span class="sr-only"></span></span>
+            </li>
+            <!--	Here the JS Function Will Add the Rows -->
+            <li data-page="next" id="prev">
+                <span> > <span class="sr-only"></span></span>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+
+
+
+
+
+<!-- Scripts -->
+<script src="lib/jquery-3.3.1.js"></script>
 <script src="lib/d3v5.min.js"></script>
 <script src="lib/underscore-min.js"></script>
-<!--<script src="lib/d3RangeSlider.js"></script>-->
+<script src="lib/rSlider.js"></script>
+<script src="lib/jquery.dataTables.min.js"></script>
+<script src="js/table.js"></script>
 
 <script src="js/main.js"></script>
 <script src="js/barcharts.js"></script>
 
-
 <script>
+    var width;
+    var columns;
 
+    const set_size = function(){
+        width = d3.select("#chart-wrapper").node().getBoundingClientRect().width;
+        columns = Math.floor(width/250);
+        d3.selectAll("#chart").style("width", columns * 250 + "px");
+    };
+
+    set_size();
+    d3.select(window).on("resize", set_size);
 
 
 </script>
+
+
 </body>
 </html>
