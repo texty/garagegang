@@ -87,9 +87,6 @@ nav {
   display: grid;
   grid-template-columns: repeat(auto-fill, 250px);
   flex-wrap: wrap; }
-  @media (max-width: 500px) {
-    #chart {
-      grid-template-columns: repeat(auto-fill, 200px); } }
 
 svg {
   margin: auto; }
