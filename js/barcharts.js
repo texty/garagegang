@@ -101,6 +101,8 @@ var drawBars = function (df, multiplenest, yCount) {
                     $('#platform').closest("th").find("h3").text("×");
                     $('#capital').removeClass("hidden").attr('size', 1).val(k.key).change();
                     $('#capital').closest("th").find("h3").text("×");
+                    $("#any_date").prop('selectedIndex', -1).addClass("hidden");
+
                 })
 
                 .transition()

@@ -34,7 +34,7 @@ nav {
     }
 
     div {
-      width: max-content;
+      //width: max-content;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -115,10 +115,7 @@ nav {
 #chart-wrapper {
   max-width: 1250px;
   width: 100%;
-  //display: flex;
-  //display: block;
   margin:auto;
-  //width: max-content;
 }
 
 #chart {
@@ -129,6 +126,10 @@ nav {
   display: grid;
   grid-template-columns: repeat(auto-fill, 250px);
   flex-wrap: wrap;
+  @media(max-width: 500px) {
+    grid-template-columns: repeat(auto-fill, 200px);
+
+  }
 }
 
 svg {
@@ -178,10 +179,6 @@ table.dataTable tbody tr {
  background-color: transparent;
 }
 
-.pager {
-  color: white;
-}
-
 
 table td {
   text-align: center;
@@ -219,6 +216,7 @@ th {
     //margin: 5px 0;
     padding: 5px;
     list-style-type: none;
+    z-index: 10000;
 
     option {
       font-size: 14px;
@@ -235,12 +233,7 @@ table td:nth-child(1) {
 }
 
 
-//tbody > tr:nth-child(even) {
-//  background-color: #8493e7 !important;
-//}
-
 tbody > tr:nth-child(even) td {
-  //border-top: 1px solid #8493e7 !important;
   color: #89c0da !important;
 }
 
@@ -277,6 +270,44 @@ ul.pagination li.active {
   opacity: 0;
   pointer-events: none;
 }
+
+@media only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px) {
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+
+
+
+  tr {
+    border: 1px solid #ccc;
+  }
+
+  td {
+    border: none;
+    position: relative;
+    padding: 5px 0  5px 50%;
+    text-align: left !important;
+  }
+
+  td:before {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+  }
+
+
+  td:before {
+    content: attr(data-th) ": ";
+    font-weight: bold;
+    width: 6.5em;
+    display: inline-block;
+  }
+}
+
 
 
 

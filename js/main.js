@@ -80,8 +80,8 @@ var draw = function(df, yearStart, yearEnd, yCount){
     d3.selectAll("#chart svg").remove();
 
 
-    const width = window.innerWidth >= 1200 ? 1200: window.innerWidth * 0.9;
-    const columns = Math.floor(width/250);
+    // const width = window.innerWidth >= 1200 ? 1200: window.innerWidth * 0.9;
+    // const columns = Math.floor(width/250);
     const one_h = df[0].platform_type === "Краудфандинг"? 500 : 300;
 
     var multiplenest;

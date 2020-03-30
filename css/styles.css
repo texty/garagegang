@@ -27,7 +27,6 @@ nav {
       nav #buttons {
         display: block; } }
     nav #buttons div {
-      width: max-content;
       display: flex;
       align-items: center;
       justify-content: space-between; }
@@ -88,6 +87,9 @@ nav {
   display: grid;
   grid-template-columns: repeat(auto-fill, 250px);
   flex-wrap: wrap; }
+  @media (max-width: 500px) {
+    #chart {
+      grid-template-columns: repeat(auto-fill, 200px); } }
 
 svg {
   margin: auto; }
@@ -121,9 +123,6 @@ table {
 table.dataTable tbody tr {
   background-color: transparent; }
 
-.pager {
-  color: white; }
-
 table td {
   text-align: center; }
 
@@ -151,7 +150,8 @@ th {
     text-align: left;
     text-transform: capitalize;
     padding: 5px;
-    list-style-type: none; }
+    list-style-type: none;
+    z-index: 10000; }
     th select option {
       font-size: 14px;
       padding: 3px 0;
@@ -189,5 +189,32 @@ ul.pagination li.active {
 .hidden {
   opacity: 0;
   pointer-events: none; }
+
+@media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+  table, thead, tbody, th, td, tr {
+    display: block; }
+
+  tr {
+    border: 1px solid #ccc; }
+
+  td {
+    border: none;
+    position: relative;
+    padding: 5px 0  5px 50%;
+    text-align: left !important; }
+
+  td:before {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap; }
+
+  td:before {
+    content: attr(data-th) ": ";
+    font-weight: bold;
+    width: 6.5em;
+    display: inline-block; } }
 
 /*# sourceMappingURL=styles.css.map */
