@@ -3,10 +3,7 @@
  */
 var drawBars = function (df, multiplenest, yCount) {
     drawHeaders(df,  multiplenest);
-    drawT(df, multiplenest);
-    //d3.select("#table").html("");
-
-
+    drawTable(df, multiplenest);
 
     const formatValue = d3.format(".2s");
 
@@ -99,8 +96,11 @@ var drawBars = function (df, multiplenest, yCount) {
                             d[multiplenest] === data.key &&
                             d.capital === k.key
                     });
-
-
+                    drawTable(table_data, multiplenest);
+                    $('#platform').removeClass("hidden").attr('size', 1).val(data.key).change();
+                    $('#platform').closest("th").find("h3").text("×");
+                    $('#capital').removeClass("hidden").attr('size', 1).val(k.key).change();
+                    $('#capital').closest("th").find("h3").text("×");
                 })
 
                 .transition()
@@ -142,7 +142,7 @@ var drawBars = function (df, multiplenest, yCount) {
                    .style("fill", "#1381B5")
                    .text( yCount === "engaged_number"? maxValue : formatValue(maxValue));
 
-            pos_y.append("text")
+           pos_y.append("text")
                 .attr("class", "axis-hint")
                 .attr("x", -10)
                 .attr("y", -10)
@@ -156,7 +156,7 @@ var drawBars = function (df, multiplenest, yCount) {
 
 
 
-            if(multiplenest === "platform") {
+           if(multiplenest === "platform") {
                 const neg_y = G
                     .append("g")
                     .attr("transform", "translate(-20,10)")
@@ -174,12 +174,7 @@ var drawBars = function (df, multiplenest, yCount) {
                     .style("fill", "#1381B5")
                     .text("нереалізовано проектів");
 
-            }
-
-
-
-
-           
+           }
 
         });
 

@@ -1,3 +1,4 @@
+@charset "UTF-8";
 * {
   outline: none; }
 
@@ -129,25 +130,26 @@ table td {
 th {
   position: relative;
   letter-spacing: 1px;
-  padding: 5px;
-  padding-bottom: 30px; }
-  th p {
+  padding: 5px 5px 40px 5px; }
+  th h3 {
+    content: "×";
+    cursor: pointer; }
+  th p, th h3 {
+    margin: 0 10px 0 0;
     text-transform: uppercase;
-    display: inline-block;
-    margin-right: 10px; }
+    display: inline-block; }
   th select {
     background-color: #0D263C;
     color: #429ac4;
     position: absolute;
     left: 0;
     width: 100%;
-    top: calc(100% - 30px);
+    top: calc(100% - 35px);
     max-height: 100px;
     overflow-y: auto;
     padding-inline-start: 0;
     text-align: left;
     text-transform: capitalize;
-    margin: 0;
     padding: 5px;
     list-style-type: none; }
     th select option {
@@ -175,12 +177,17 @@ option {
 
 ul.pagination li {
   min-width: 30px;
-  background-color: white;
+  background-color: #429ac4;
+  color: #0D263C;
   margin: 0 5px;
   text-align: center;
   cursor: pointer; }
 
+ul.pagination li.active {
+  background-color: #1381B5; }
+
 .hidden {
-  display: none; }
+  opacity: 0;
+  pointer-events: none; }
 
 /*# sourceMappingURL=styles.css.map */
