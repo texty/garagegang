@@ -78,11 +78,11 @@ d3.csv("data/data.csv").then(function(data){
 
 var draw = function(df, yearStart, yearEnd, yCount){
     d3.selectAll("#chart svg").remove();
+    
 
-
-    // const width = window.innerWidth >= 1200 ? 1200: window.innerWidth * 0.9;
-    // const columns = Math.floor(width/250);
-    const one_h = df[0].platform_type === "Краудфандинг"? 500 : 300;
+    one_h = df[0].platform_type === "Краудфандинг"? 500 : 300;
+    
+    
 
     var multiplenest;
     var filtered;
@@ -112,17 +112,8 @@ var draw = function(df, yearStart, yearEnd, yCount){
         .entries(filtered);
 
 
-    const height = nested.length / columns * (one_h+ 50);
-    const container =  d3.select("#chart")
-        // .append("svg")
-        // .attr("width", width)
-        // .attr("height", height)
-        //.append("div")
-        // .attr("width", 300)
-        // .attr("height", one_h)
-        // .append("g")
-        // .attr("transform", "translate(" + 50 + "," + 0 + ")")
-        ;
+    const height = nested.length / columns * (one_h + 50);
+    const container =  d3.select("#chart");
 
 
     /* якщо немає успішного чи неуспішного, не малюються бари, додаємо відсутній*/
@@ -138,13 +129,8 @@ var draw = function(df, yearStart, yearEnd, yCount){
         .data(nested).enter()
         .append("svg")
         .attr("class", "multiple")
-            .attr("width", 250)
-    .attr("height", one_h)
-        // .attr("transform", function(d, i){
-        //    var xshift = (i % columns) * 300;
-        //    var yshift = ~~(i / columns) * one_h;
-        //    return "translate(" + xshift + "," + yshift + ")"} )
-        ;
+        .attr("width", one_w)
+        .attr("height", one_h);
 
 
     multiple

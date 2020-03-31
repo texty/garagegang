@@ -19,7 +19,7 @@ nav {
   height: max-content;
   color: #1381B5;
   width: 98%;
-  max-width: 1200px;
+  max-width: 1250px;
   margin: 0 auto 50px auto; }
   nav p {
     margin: 5px; }
@@ -33,13 +33,9 @@ nav {
       display: flex;
       align-items: center;
       justify-content: space-between; }
-      @media (max-width: 500px) {
+      @media (max-width: 812px) {
         nav #buttons div {
-          display: block;
-          font-size: 13px; } }
-      @media (max-width: 500px) {
-        nav #buttons div p {
-          display: none; } }
+          display: block; } }
   nav input[type='range'] {
     width: 1200px; }
   nav ul {
@@ -53,7 +49,7 @@ nav {
     justify-content: space-between; }
   nav ul#legend {
     justify-content: flex-start;
-    margin: 10px 0; }
+    margin: 20px 0; }
     @media (max-width: 500px) {
       nav ul#legend {
         font-size: 15px; } }
@@ -80,7 +76,7 @@ nav {
     color: white; }
     @media (max-width: 500px) {
       nav button.button {
-        font-size: 15px;
+        font-size: 14px;
         margin: 5px 5px 5px 0; } }
   nav button:hover {
     background-color: #1381B5; }
@@ -106,7 +102,7 @@ nav {
   flex-wrap: wrap; }
   @media (max-width: 500px) {
     #chart {
-      grid-template-columns: repeat(auto-fill, 190px); } }
+      grid-template-columns: repeat(auto-fill, 160px); } }
 
 svg {
   margin: auto; }

@@ -70,7 +70,7 @@
     transition: none;
 }
 .rs-container .rs-scale {
-    width: 100%;
+    /*width: 100%;*/
     left: 0;
     position: absolute;
     top: 5px;
@@ -100,7 +100,7 @@
     display: block;
 }
 .rs-container .rs-scale span:last-child {
-    /*display: none;*/
+    display: none;
     /*margin-left: -1px;*/
     /*width: 0px;*/
 }

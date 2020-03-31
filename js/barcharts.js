@@ -7,9 +7,9 @@ var drawBars = function (df, multiplenest, yCount) {
 
     const formatValue = d3.format(".2s");
 
-    const margin = {top: 0, right: 0, bottom: 0, left: 80};
+    const margin = {top: 0, right: 0, bottom: 0, left: 50};
     const chart_height = 400;
-    const chart_width = 150;
+    const chart_width = one_w - margin.left;
 
     //console.log("---------");
 
@@ -149,7 +149,7 @@ var drawBars = function (df, multiplenest, yCount) {
                 .attr("x", -10)
                 .attr("y", -10)
                 .attr("dy", "0")
-                .attr("transform", "translate(0, 190) rotate(-90)")
+                .attr("transform", "translate(0, " + (chart_height/2 - 10) + ") rotate(-90)")
                 .attr("text-anchor", "start")
                 .style("font-size", "1.3em")
                 .style("letter-spacing", "1.5px")
@@ -169,7 +169,8 @@ var drawBars = function (df, multiplenest, yCount) {
                     .attr("x", -10)
                     .attr("y", -10)
                     .attr("dy", "0")
-                    .attr("transform", "translate(0, 390) rotate(-90)")
+                    .attr("transform", "translate(0, " + (chart_height - 10) + ") rotate(-90)")
+
                     .attr("text-anchor", "start")
                     .style("font-size", "1.3em")
                     .style("letter-spacing", "1.5px")

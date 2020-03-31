@@ -95,14 +95,21 @@
 <script>
     var width;
     var columns;
+    var one_w;
+    var one_h;
+
 
     const set_size = function(){
         width = d3.select("#chart-wrapper").node().getBoundingClientRect().width;
-        columns = Math.floor(width / 250);
-        if(width > 500) {
-            d3.selectAll("#chart").style("width", columns * 250 + "px");
+        if(width >= 500) {
+            one_w = 250;
+            columns = Math.floor(width / one_w);
+            d3.selectAll("#chart").style("width", columns * one_w + "px");
         } else {
-            d3.selectAll("#chart").style("width", "100%");
+            one_w = 160;
+            columns = Math.floor(width / one_w);
+            d3.selectAll("#chart").style("width", columns * one_w + "px");
+            //d3.selectAll("#chart").style("width", "100%");
         }
     };
 

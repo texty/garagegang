@@ -26,7 +26,7 @@ nav {
   height: max-content;
   color: #1381B5;
   width: 98%;
-  max-width: 1200px;
+  max-width: 1250px;
   margin: 0 auto 50px auto;
 
   p {
@@ -44,16 +44,15 @@ nav {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      @media(max-width: 500px){
+      @media(max-width: 812px){
         display: block;
-        font-size: 13px;
       }
 
-      p {
-        @media(max-width: 500px){
-          display: none;
-        }
-      }
+      //p {
+      //  @media(max-width: 500px){
+      //    display: none;
+      //  }
+      //}
     }
   }
 
@@ -79,7 +78,7 @@ nav {
 
   ul#legend {
     justify-content: flex-start;
-    margin: 10px 0;
+    margin: 20px 0;
     @media(max-width: 500px){
       font-size: 15px;
     }
@@ -112,7 +111,7 @@ nav {
     text-transform: uppercase;
     color: white;
     @media(max-width: 500px){
-      font-size: 15px;
+      font-size: 14px;
       margin: 5px 5px 5px 0;
     }
   }
@@ -149,7 +148,7 @@ nav {
   grid-template-columns: repeat(auto-fill, 250px);
   flex-wrap: wrap;
   @media(max-width: 500px) {
-    grid-template-columns: repeat(auto-fill, 190px);
+    grid-template-columns: repeat(auto-fill, 160px);
 
   }
 }
