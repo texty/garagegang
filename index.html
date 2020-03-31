@@ -7,6 +7,7 @@
     <title>Title</title>
 
     <!-- Links-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel="stylesheet" href="css/rSlider.css">
     <!--<link rel="stylesheet" href="css/jquery.dataTables.min.css"/>-->
     <link rel="stylesheet" href="css/styles.css"/>
@@ -14,29 +15,34 @@
 <body>
 
 <div>
-<nav>
 
-    <div id="buttons">
-        <div>
-            <p>Оберіть тип платформи:</p>
-            <button id="craudf" class="button active" >Краунфандінг</button>
-            <button id="budget" class="button">Громадський бюджет</button>
-        </div>
-        <div>
-            <p>Оберіть голоси або гроші:</p>
-            <button id="money" class="button active" >Бюджет</button>
-            <button id="voices" class="button">Кількість голосів</button>
+
+<nav>
+    <div style="background-color: rgba(250,250,250, 0.9); padding: 5px;">
+        <p id="toggle-nav" title="згорнути"><i class="fas fa-times"></i></p>
+
+        <div class="accordion">
+            <div id="buttons">
+                <div>
+                    <p>Оберіть тип платформи:</p>
+                    <button id="craudf" class="button active" >Краунфандінг</button>
+                    <button id="budget" class="button">Громадський бюджет</button>
+                </div>
+                <div>
+                    <p>Оберіть голоси або гроші:</p>
+                    <button id="money" class="button active" >Бюджет</button>
+                    <button id="voices" class="button">Кількість голосів</button>
+                </div>
+
+            </div>
+
+        <p>Оберіть період: </p>
+            <input type="text" id="slider" class="slider">
         </div>
 
     </div>
-
-
-    <p>Оберіть період: </p>
-        <input type="text" id="slider" class="slider">
-
     <ul id="legend">
-        <li>Тип капіталу:</li>
-        <li><span style="background-color: #5CE577"></span>Культурний</li>
+        <li><span style="background-color: #5CE577"></span>Культурний капітал</li>
         <li><span style="background-color: #4A80FF"></span>Соціальний</li>
         <li><span style="background-color: #EAEDA0"></span>Людський</li>
         <li><span style="background-color: #EB6AC2"></span>Інфраструктурний</li>
@@ -102,6 +108,13 @@
 
     set_size();
     d3.select(window).on("resize", set_size);
+
+    $("#toggle-nav").on("click", function(){
+        $(this).find("i").toggleClass("fa-times");
+        $(this).find("i").toggleClass("fa-plus");
+        $(".accordion").toggleClass("display-none");
+
+    })
 
 
 </script>

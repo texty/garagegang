@@ -1,4 +1,5 @@
 $multiRangeHeight: 2em;
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css");
 
 * {
   outline: none;
@@ -8,9 +9,11 @@ body {
   font-family: "Arial", sans-serif;
 }
 
-p {
-  margin: 5px 0;
 
+
+
+#toggle-nav {
+  cursor: pointer;
 }
 
 
@@ -18,13 +21,17 @@ nav {
   background-color: #0D263C;
   position: sticky;
   top: 0;
-  left: 10px;
-  padding-top: 2px;
+  left: 0;
+  padding: 5px;
   height: max-content;
   color: #1381B5;
-  width: 100%;
+  width: 98%;
   max-width: 1200px;
   margin: 0 auto 50px auto;
+
+  p {
+    margin: 5px;
+  }
 
   #buttons {
     display: flex;
@@ -34,11 +41,11 @@ nav {
     }
 
     div {
-      //width: max-content;
       display: flex;
       align-items: center;
       justify-content: space-between;
       @media(max-width: 500px){
+        display: block;
         font-size: 13px;
       }
 
@@ -74,7 +81,7 @@ nav {
     justify-content: flex-start;
     margin: 10px 0;
     @media(max-width: 500px){
-      font-size: 13px;
+      font-size: 15px;
     }
 
     li {
@@ -93,7 +100,7 @@ nav {
 
   button.button {
     font-family: inherit;
-    margin: 10px 5px;
+    margin: 10px 10px 10px 0;
     background-color:#3F627F;
     border: 0;
     display:inline-block;
@@ -104,6 +111,10 @@ nav {
     text-decoration:none;
     text-transform: uppercase;
     color: white;
+    @media(max-width: 500px){
+      font-size: 15px;
+      margin: 5px 5px 5px 0;
+    }
   }
 
   button:hover {
@@ -119,10 +130,10 @@ nav {
     background-color: #1381B5;
   }
 
-
   .rs-scale span:nth-child(odd) ins { opacity: 0}
-
 }
+
+
 
 #chart-wrapper {
   max-width: 1250px;
@@ -283,6 +294,10 @@ ul.pagination li.active {
   pointer-events: none;
 }
 
+.display-none {
+  display: none;
+}
+
 @media only screen and (max-width: 760px),
 (min-device-width: 768px) and (max-device-width: 1024px) {
   table, thead, tbody, th, td, tr {
@@ -319,6 +334,7 @@ ul.pagination li.active {
     display: inline-block;
   }
 }
+
 
 
 

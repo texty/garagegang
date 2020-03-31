@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css");
 * {
   outline: none; }
 
@@ -6,20 +7,22 @@ body {
   background-color: #0D263C;
   font-family: "Arial", sans-serif; }
 
-p {
-  margin: 5px 0; }
+#toggle-nav {
+  cursor: pointer; }
 
 nav {
   background-color: #0D263C;
   position: sticky;
   top: 0;
-  left: 10px;
-  padding-top: 2px;
+  left: 0;
+  padding: 5px;
   height: max-content;
   color: #1381B5;
-  width: 100%;
+  width: 98%;
   max-width: 1200px;
   margin: 0 auto 50px auto; }
+  nav p {
+    margin: 5px; }
   nav #buttons {
     display: flex;
     justify-content: space-between; }
@@ -32,6 +35,7 @@ nav {
       justify-content: space-between; }
       @media (max-width: 500px) {
         nav #buttons div {
+          display: block;
           font-size: 13px; } }
       @media (max-width: 500px) {
         nav #buttons div p {
@@ -52,7 +56,7 @@ nav {
     margin: 10px 0; }
     @media (max-width: 500px) {
       nav ul#legend {
-        font-size: 13px; } }
+        font-size: 15px; } }
     nav ul#legend li {
       margin-right: 20px;
       margin-bottom: 5px; }
@@ -63,7 +67,7 @@ nav {
         margin-right: 5px; }
   nav button.button {
     font-family: inherit;
-    margin: 10px 5px;
+    margin: 10px 10px 10px 0;
     background-color: #3F627F;
     border: 0;
     display: inline-block;
@@ -74,6 +78,10 @@ nav {
     text-decoration: none;
     text-transform: uppercase;
     color: white; }
+    @media (max-width: 500px) {
+      nav button.button {
+        font-size: 15px;
+        margin: 5px 5px 5px 0; } }
   nav button:hover {
     background-color: #1381B5; }
   nav button:active {
@@ -198,6 +206,9 @@ ul.pagination li.active {
 .hidden {
   opacity: 0;
   pointer-events: none; }
+
+.display-none {
+  display: none; }
 
 @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
   table, thead, tbody, th, td, tr {
