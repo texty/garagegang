@@ -92,8 +92,12 @@
 
     const set_size = function(){
         width = d3.select("#chart-wrapper").node().getBoundingClientRect().width;
-        columns = Math.floor(width/250);
-        d3.selectAll("#chart").style("width", columns * 250 + "px");
+        columns = Math.floor(width / 250);
+        if(width > 500) {
+            d3.selectAll("#chart").style("width", columns * 250 + "px");
+        } else {
+            d3.selectAll("#chart").style("width", "100%");
+        }
     };
 
     set_size();

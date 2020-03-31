@@ -38,6 +38,15 @@ nav {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      @media(max-width: 500px){
+        font-size: 13px;
+      }
+
+      p {
+        @media(max-width: 500px){
+          display: none;
+        }
+      }
     }
   }
 
@@ -64,6 +73,9 @@ nav {
   ul#legend {
     justify-content: flex-start;
     margin: 10px 0;
+    @media(max-width: 500px){
+      font-size: 13px;
+    }
 
     li {
       margin-right: 20px;
@@ -119,13 +131,16 @@ nav {
 }
 
 #chart {
-
   align-self: center;
   justify-self: center;
   margin: auto;
   display: grid;
   grid-template-columns: repeat(auto-fill, 250px);
   flex-wrap: wrap;
+  @media(max-width: 500px) {
+    grid-template-columns: repeat(auto-fill, 190px);
+
+  }
 }
 
 svg {
@@ -259,7 +274,8 @@ ul.pagination li {
 }
 
 ul.pagination li.active {
-  background-color: #1381B5;
+  background-color: #89c0da;
+  //border: 1px solid white;
 }
 
 .hidden {

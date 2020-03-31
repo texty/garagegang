@@ -30,6 +30,12 @@ nav {
       display: flex;
       align-items: center;
       justify-content: space-between; }
+      @media (max-width: 500px) {
+        nav #buttons div {
+          font-size: 13px; } }
+      @media (max-width: 500px) {
+        nav #buttons div p {
+          display: none; } }
   nav input[type='range'] {
     width: 1200px; }
   nav ul {
@@ -44,6 +50,9 @@ nav {
   nav ul#legend {
     justify-content: flex-start;
     margin: 10px 0; }
+    @media (max-width: 500px) {
+      nav ul#legend {
+        font-size: 13px; } }
     nav ul#legend li {
       margin-right: 20px;
       margin-bottom: 5px; }
@@ -87,6 +96,9 @@ nav {
   display: grid;
   grid-template-columns: repeat(auto-fill, 250px);
   flex-wrap: wrap; }
+  @media (max-width: 500px) {
+    #chart {
+      grid-template-columns: repeat(auto-fill, 190px); } }
 
 svg {
   margin: auto; }
@@ -181,7 +193,7 @@ ul.pagination li {
   cursor: pointer; }
 
 ul.pagination li.active {
-  background-color: #1381B5; }
+  background-color: #89c0da; }
 
 .hidden {
   opacity: 0;
