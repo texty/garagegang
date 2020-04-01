@@ -137,8 +137,8 @@ var draw = function(df, yearStart, yearEnd, yCount){
         .append("text")
         .text(function(d){ return d.key })
         .attr("y", 15)
-        .attr("x", 70)
-        .attr("fill", "white")
+        .attr("x", one_w/2)
+        .attr("fill", "rgba(250,250,250, 0.9)")
         .style("text-anchor", "middle");
 
 
@@ -152,7 +152,58 @@ var draw = function(df, yearStart, yearEnd, yCount){
             return d
          })
         .call(drawBars(df, multiplenest, yCount));
-        
+
+
+    multiple
+        .datum(function (d) {
+            return d
+        })
+        .filter(function(d,i){
+            return i == 0
+        })
+        .append("text")
+        .text(function(d){ return "клікніть на стовбчик" })
+        .attr("y", 100)
+        .attr("x", 50)
+        .attr("fill", "rgba(250,250,250, 0.9)")
+        .style("font-size", "14px")
+        .call(wrap, 100);
+
 };
+
+function wrap(text, width) {
+    text.each(function () {
+        var text = d3.select(this),
+            words = text.text().split(/\s+/).reverse(),
+            word,
+            line = [],
+            lineNumber = 0,
+            lineHeight = 1.1, // ems
+            x = text.attr("x"),
+            y = text.attr("y"),
+            dy = 0, //parseFloat(text.attr("dy")),
+            tspan = text.text(null)
+                .append("tspan")
+                .attr("x", x)
+                .attr("y", y)
+                // .style("font-size", "1.5px")
+                .attr("dy", dy + "em");
+        while (word = words.pop()) {
+            line.push(word);
+            tspan.text(line.join(" "));
+            if (tspan.node().getComputedTextLength() > width) {
+                line.pop();
+                tspan.text(line.join(" "));
+                line = [word];
+                tspan = text.append("tspan")
+                    .attr("x", x)
+                    .attr("y", y)
+                    // .style("font-size", "1.5px")
+                    .attr("dy", ++lineNumber * lineHeight + dy + "em")
+                    .text(word);
+            }
+        }
+    });
+}
 
 

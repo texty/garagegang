@@ -102,13 +102,16 @@ var drawBars = function (df, multiplenest, yCount) {
                     $('#capital').removeClass("hidden").attr('size', 1).val(k.key).change();
                     $('#capital').closest("th").find("h3").text("×");
                     $("#any_date").prop('selectedIndex', -1).addClass("hidden");
+                    $([document.documentElement, document.body]).animate({ scrollTop: $("table").offset().top}, 1000);  //прокрутка до таблички на клік
+
 
                 })
 
                 .transition()
                 .duration(500)
                 .attr("y",function(k){ return k.value < 0? y(0) + 5 : y(k.value)  })
-                .attr("height", function(k){ return chart_height/2 - y(Math.abs(k.value)); });
+                .attr("height", function(k){ return chart_height/2 - y(Math.abs(k.value)); })
+                .style("cursor", "pointer");
 
             labels
                 .enter()
@@ -177,7 +180,7 @@ var drawBars = function (df, multiplenest, yCount) {
                     .style("fill", "#1381B5")
                     .text("нереалізовано проектів");
 
-           }
+           }           
 
         });
 
