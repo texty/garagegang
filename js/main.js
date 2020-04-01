@@ -154,20 +154,20 @@ var draw = function(df, yearStart, yearEnd, yCount){
         .call(drawBars(df, multiplenest, yCount));
 
 
-    multiple
-        .datum(function (d) {
-            return d
-        })
-        .filter(function(d,i){
-            return i == 0
-        })
-        .append("text")
-        .text(function(d){ return "клікніть на стовбчик" })
-        .attr("y", 100)
-        .attr("x", 50)
-        .attr("fill", "rgba(250,250,250, 0.9)")
-        .style("font-size", "14px")
-        .call(wrap, 100);
+    // multiple
+    //     .datum(function (d) {
+    //         return d
+    //     })
+    //     .filter(function(d,i){
+    //         return i == 0
+    //     })
+    //     .append("text")
+    //     .text(function(d){ return "click ->" })
+    //     .attr("y", 100)
+    //     .attr("x", 50)
+    //     .attr("fill", "rgba(250,250,250, 0.9)")
+    //     .style("font-size", "14px")
+    //     .call(wrap, 100);
 
 };
 

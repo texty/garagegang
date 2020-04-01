@@ -101,6 +101,8 @@ var drawBars = function (df, multiplenest, yCount) {
                     $('#platform').closest("th").find("h3").text("×");
                     $('#capital').removeClass("hidden").attr('size', 1).val(k.key).change();
                     $('#capital').closest("th").find("h3").text("×");
+                    // $('#status').removeClass("hidden").attr('size', 1).val(k.res).change();
+                    // $('#status').closest("th").find("h3").text("×");
                     $("#any_date").prop('selectedIndex', -1).addClass("hidden");
                     $([document.documentElement, document.body]).animate({ scrollTop: $("table").offset().top}, 1000);  //прокрутка до таблички на клік
 

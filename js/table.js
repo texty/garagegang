@@ -16,7 +16,8 @@ const drawHeaders = function(targetData, multiplenest) {
         {"name": "Тип капіталу", "correspond": "capital"},
         {"name": multiplenest, "correspond": multiplenest},
         {"name": "Платформа", "correspond": multiplenest},
-        {"name": "Рік", "correspond": "any_date"}
+        {"name": "Рік", "correspond": "any_date"},
+        {"name": "Успішність", "correspond": "status"}
     ];
 
     const headers =  tableHead.append('tr')
@@ -71,9 +72,9 @@ const drawHeaders = function(targetData, multiplenest) {
                 //кнопочка +
                 d3.select(this)
                     .append("h3")
-                    .text("+")
+                    .text(window.innerWidth > 760 ?"+": "×")
                     .on("click", function(){
-                        d3.select(currentNode).select("select").attr('size', 5);
+                        d3.select(currentNode).select("select").attr('size', window.innerWidth > 760 ? 5: 1);
                         d3.select(currentNode).select("select").classed("hidden",  function() {
                             return !this.classList.contains("hidden")
                         });
@@ -100,8 +101,8 @@ const drawHeaders = function(targetData, multiplenest) {
                 var select = d3.select(this)
                     .append("select")
                     .attr("id", function() { return  selectedAttr[0].correspond != multiplenest ? selectedAttr[0].correspond : "platform"})
-                    .attr("class", "hidden")
-                    .attr('size', 5)
+                    .attr("class", window.innerWidth > 760 ? "hidden": "" )
+                    .attr('size', window.innerWidth > 760 ? 5: 1)
                     .on("change", function(e){
                         $(this).attr("size", 1);
                         //var selectedOption = this.options[this.selectedIndex].value;
@@ -181,6 +182,14 @@ const drawTable = function (targetData, multiplenest) {
         .text(function (d) {
             return d.any_date;
         });
+
+    // rows.append('td')
+    //     .attr("data-th", "Успішність")
+    //     .attr("class", "status")
+    //     .text(function (d) {
+    //         return d.status;
+    //     });
+
     getPagination('table');
 };
 
@@ -189,8 +198,9 @@ const drawTable = function (targetData, multiplenest) {
      var lastPage = 1;
      $('.pagination')
          .find('li')
-         .slice(1, -1)
+         // .slice(1, -1)
          .remove();
+
      var trnum = 0;
      var maxRows = 20;
 
@@ -207,16 +217,10 @@ const drawTable = function (targetData, multiplenest) {
      if (totalRows > maxRows) {
          var pagenum = Math.ceil(totalRows / maxRows);
          for (var i = 1; i <= pagenum; ) {
-             $('.pagination #prev')
-                 .before(
-                     '<li data-page="' +
-                     i +
-                     '">\
-                                       <span>' +
-                     i++ +
-                     '<span class="sr-only"></span></span>\
-                                     </li>'
-                 )
+             $('.pagination')
+                 .append(
+                     '<li data-page="' + i + '"> <span>' +    i++ +
+                     '<span class="sr-only"></span></span></li>')
                  .show();
          }
      }
@@ -289,6 +293,9 @@ const checkSelected = function(targetData, multiplenest){
 
     var yearCol = document.getElementById("any_date");
     var yearColVal = yearCol.selectedIndex >= 0? yearCol.options[yearCol.selectedIndex].value : null;
+
+    // var statusCol = document.getElementById("statusCol");
+    // var statusColVal = statusCol.selectedIndex >= 0? statusCol.options[statusCol.selectedIndex].value : null;
 
     if(capitalColVal && yearColVal && platformColVal){
         let table_data = targetData.filter(function(d){

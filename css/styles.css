@@ -130,11 +130,16 @@ g.tick text {
 
 table {
   width: 100%;
-  color: #1381B5;
-  table-layout: fixed; }
+  color: #1381B5; }
 
-table.dataTable tbody tr {
-  background-color: transparent; }
+th:nth-child(2) {
+  min-width: 130px; }
+
+th:nth-child(3) {
+  min-width: 150px; }
+
+th:nth-child(6) {
+  min-width: 60px; }
 
 table td {
   text-align: center; }
@@ -147,6 +152,7 @@ th {
     content: "×";
     cursor: pointer; }
   th p, th h3 {
+    font-size: 14px;
     margin: 0 10px 0 0;
     text-transform: uppercase;
     display: inline-block; }
@@ -188,13 +194,23 @@ option {
   color: #429ac4;
   background-color: #0D263C; }
 
+.pagination-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: auto; }
+
+ul.pagination {
+  display: flex;
+  padding: 0; }
+
 ul.pagination li {
   min-width: 30px;
   background-color: #429ac4;
   color: #0D263C;
   margin: 0 5px;
   text-align: center;
-  cursor: pointer; }
+  cursor: pointer;
+  list-style-type: none; }
 
 ul.pagination li.active {
   background-color: #89c0da; }
@@ -202,10 +218,6 @@ ul.pagination li.active {
 .hidden {
   opacity: 0;
   pointer-events: none; }
-  @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
-    .hidden {
-      opacity: 1;
-      pointer-events: all; } }
 
 .display-none {
   display: none; }
@@ -213,6 +225,9 @@ ul.pagination li.active {
 @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
   table, thead, tbody, th, td, tr {
     display: block; }
+
+  th:nth-child(1), th:nth-child(4), th:nth-child(5) {
+    display: none; }
 
   tr {
     border: 1px solid #ccc; }
