@@ -1,5 +1,5 @@
 $multiRangeHeight: 2em;
-@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css");
+//@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css");
 
 * {
   outline: none;
@@ -9,7 +9,21 @@ body {
   font-family: "Arial", sans-serif;
 }
 
+h1 {
+  font-size: 30px;
+  font-weight: bold;
+  display: block;
+  width: 80%;
+  margin: auto;
+  color: white;
+}
 
+select.heading-select {
+  background-color:#1381B5;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+}
 
 
 #toggle-nav {
@@ -19,14 +33,14 @@ body {
 
 nav {
   background-color: #0D263C;
-  position: sticky;
-  top: 0;
-  left: 0;
+  //position: sticky;
+  //top: 0;
+  //left: 0;
   padding: 5px;
   height: max-content;
   color: #1381B5;
   width: 98%;
-  max-width: 1250px;
+  max-width: 1500px;
   margin: 0 auto 50px auto;
 
   p {
@@ -135,27 +149,33 @@ nav {
 
 
 #chart-wrapper {
-  max-width: 1250px;
+  position: relative;
+  max-width: 1500px;
   width: 100%;
   margin:auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 50px auto;
 }
 
 #chart {
-  align-self: center;
-  justify-self: center;
-  margin: auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 250px);
-  flex-wrap: wrap;
+  grid-column: 1/2;
+  grid-row: 2/3;
+  //align-self: center;
+  //justify-self: center;
+  //margin: auto;
+  //display: grid;
+  //grid-template-columns: repeat(auto-fill, 250px);
+  //flex-wrap: wrap;
   @media(max-width: 500px) {
     grid-template-columns: repeat(auto-fill, 160px);
 
   }
 }
 
-svg {
-  margin: auto;
-}
+//svg {
+//  margin: auto;
+//}
 
 svg text {
   font-family: "Arial", sans-serif;
@@ -166,7 +186,7 @@ path.domain, g.tick line {
 }
 
  g.tick text {
-   display: none;
+  font-size: 16px;
   fill: #1381B5
 }
 
@@ -244,7 +264,6 @@ th {
     padding-inline-start: 0;
     text-align: left;
     text-transform: capitalize;
-    //margin: 5px 0;
     padding: 5px;
     list-style-type: none;
     z-index: 10000;
@@ -255,6 +274,8 @@ th {
       font-weight: 300;
     }
   }
+
+  select option {text-transform:capitalize}
 
 
 }
@@ -359,7 +380,63 @@ ul.pagination li.active {
 }
 
 
+form {
+  grid-column: 1/2;
+  grid-row: 1/2;
+  position: absolute;
+  top:0;
+  left:0;
+  width: 150px;
+}
 
 
+.multiselect {
+  color: white;
+  width: 150px;
+}
+
+.selectBox {
+  position: relative;
+}
+
+.selectBox select {
+  width: 100%;
+  font-weight: bold;
+}
+
+.overSelect {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+#checkboxes {
+  height: 200px;
+  overflow-y: auto;
+  background-color: #0D263C;
+  padding: 5px 0;
+  display: none;
+  //border: 1px #dadada solid;
+}
+
+#checkboxes label {
+  display: block;
+  font-size:14px;
+}
+
+#checkboxes label:hover {
+  background-color: #1e90ff;
+}
+
+button {
+  margin: 20px 0 0 0;
+}
+
+#redraw {
+  width: 200px;
+  grid-column: 2/3;
+}
 
 

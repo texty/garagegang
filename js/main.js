@@ -19,23 +19,7 @@ d3.csv("data/data.csv").then(function(data){
     //голоси чи гроші
     var yCount = "collected_amount";
 
-    var mySlider = new rSlider({
-        target: '#slider',
-        values: [2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020],
-        range: true,
-        set: [2016, 2019],
-        width:    null,
-        scale:    true,
-        labels:   true,
-        tooltip:  false,
-        step:     1,
-        disabled: false,
-        onChange: function (vals) {
-            startYear = vals.split(",")[0];
-            endYear = vals.split(",")[1];
-            draw(currentData, startYear, endYear, yCount);
-        }
-    });
+    
 
    d3.selectAll("#budget").on("click", function(e){
         d3.select(this).classed("active", true);

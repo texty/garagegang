@@ -6,8 +6,11 @@
 
     <title>Title</title>
 
+   <script src="lib/jquery-3.3.1.js"></script>
+
+
     <!-- Links-->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">-->
     <link rel="stylesheet" href="css/rSlider.css">
     <!--<link rel="stylesheet" href="css/jquery.dataTables.min.css"/>-->
     <link rel="stylesheet" href="css/styles.css"/>
@@ -16,25 +19,44 @@
 
 <main>
 
+    <h1>
+        <select id="platform_type" class="heading-select">
+            <option value="Краудфандинг">Платформи краудфандингові</option>
+            <option value="Громадський бюджет">Громадський бюджет</option>
+        </select>,
+        <select id="value_type" class="heading-select">
+            <option value="collected_amount">бюджети</option>
+            <option value="engaged_number">кількість голосів</option>
+        </select>
+        <select id="status_type" class="heading-select">
+            <option value="Успішний">успішних</option>
+            <option value="Неуспішний">неуспішних</option>
+        </select>
+            проектів,
+        <select id="percents_or_absolutes" class="heading-select">
+            <option value="percents">відсотки</option>
+            <option value="absolutes">абсолютні цифри</option>
+        </select></h1>
+
 
 <nav>
-    <div style="background-color: rgba(250,250,250, 0.9); padding: 5px;">
+    <div style="padding: 5px;">
         <p id="toggle-nav" title="згорнути"><i class="fas fa-times"></i></p>
 
         <div class="accordion">
-            <div id="buttons">
-                <div>
-                    <p>Оберіть тип платформи:</p>
-                    <button id="craudf" class="button active" >Краунфандінг</button>
-                    <button id="budget" class="button">Громадський бюджет</button>
-                </div>
-                <div>
-                    <p>Оберіть голоси або гроші:</p>
-                    <button id="money" class="button active" >Бюджет</button>
-                    <button id="voices" class="button">Кількість голосів</button>
-                </div>
+            <!--<div id="buttons">-->
+                <!--<div>-->
+                    <!--<p>Оберіть тип платформи:</p>-->
+                    <!--<button id="craudf" class="select-platform button active" value="platform">Краунфандінг</button>-->
+                    <!--<button id="budget" class="select-platform button" value="location">Громадський бюджет</button>-->
+                <!--</div>-->
+                <!--<div>-->
+                    <!--<p>Оберіть голоси або гроші:</p>-->
+                    <!--<button id="money" class="select-type button active" >Бюджет</button>-->
+                    <!--<button id="voices" class="select-type button">Кількість голосів</button>-->
+                <!--</div>-->
 
-            </div>
+            <!--</div>-->
 
         <p>Оберіть період: </p>
             <input type="text" id="slider" class="slider">
@@ -49,11 +71,43 @@
         <li><span style="background-color: white"></span>Економічний</li>
     </ul>
 
-    <p style="color: rgba(250,250,250, 0.9)"> Клікніть на будь-який стовбчик, щоб відфільтрувати результати в табличці під графіками</p>
+    <!--<p style="color: rgba(250,250,250, 0.9)"> Клікніть на будь-який стовбчик, щоб відфільтрувати результати в табличці під графіками</p>-->
 </nav>
 
 
-    <div id="chart-wrapper"><div id="chart"></div></div>
+
+    <div id="chart-wrapper">
+        <!--<div id="chart"></div>-->
+        <svg id="chart" width="650" height="400"></svg>
+
+            <form>
+                <div class="multiselect">
+                    <div class="selectBox" onclick="showCheckboxes()">
+                        <select>
+                            <option>Обрати</option>
+                        </select>
+                        <div class="overSelect"></div>
+                    </div>
+                    <div id="checkboxes">
+                        <!--<label for="one">-->
+                            <!--<input name="platform" type="checkbox" id="one" value="UBB" />UBB</label>-->
+                        <!--<label for="two">-->
+                            <!--<input name="platform" type="checkbox" id="two" value="Second" />Second</label>-->
+                        <!--<label for="three">-->
+                            <!--<input name="platform" type="checkbox" id="three" value="Third" />Third</label>-->
+
+                        <button id="checked-platforms" type="button">Обрати</button>
+                    </div>
+
+
+
+                </div>
+
+            </form>
+
+            <!--<button id="redraw">redraw</button>-->
+        </div>
+    </div>
 
 </main>
 
@@ -82,39 +136,51 @@
 
 
 <!-- Scripts -->
-<script src="lib/jquery-3.3.1.js"></script>
 <script src="lib/d3v5.min.js"></script>
 <script src="lib/underscore-min.js"></script>
 <script src="lib/rSlider.js"></script>
 <!--<script src="lib/jquery.dataTables.min.js"></script>-->
-<script src="js/table.js"></script>
+<!--<script src="js/table.js"></script>-->
 
-<script src="js/main.js"></script>
-<script src="js/barcharts.js"></script>
+<!--<script src="js/main.js"></script>-->
+<!--<script src="js/barcharts.js"></script>-->
+<script src="js/stackesBars.js"></script>
 
-<script>
-    var width;
-    var columns;
-    var one_w;
-    var one_h;
+<script>//обрані роки
+    var startYear = '2016', endYear = '2019';
 
-
-    const set_size = function(){
-        width = d3.select("#chart-wrapper").node().getBoundingClientRect().width;
-        if(width >= 500) {
-            one_w = 250;
-            columns = Math.floor(width / one_w);
-            d3.selectAll("#chart").style("width", columns * one_w + "px");
-        } else {
-            one_w = 160;
-            columns = Math.floor(width / one_w);
-            d3.selectAll("#chart").style("width", columns * one_w + "px");
-            //d3.selectAll("#chart").style("width", "100%");
+    var mySlider = new rSlider({
+        target: '#slider',
+        values: [2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020],
+        range: true,
+        set: [2016, 2019],
+        width:    null,
+        scale:    true,
+        labels:   true,
+        tooltip:  false,
+        step:     1,
+        disabled: false,
+        onChange: function (vals) {
+            startYear = vals.split(",")[0];
+            endYear = vals.split(",")[1];
+//            draw(currentData, startYear, endYear, yCount);
         }
-    };
+    });
 
-    set_size();
-    d3.select(window).on("resize", set_size);
+
+
+    var expanded = false;
+
+    function showCheckboxes() {
+        var checkboxes = document.getElementById("checkboxes");
+        if (!expanded) {
+            checkboxes.style.display = "block";
+            expanded = true;
+        } else {
+            checkboxes.style.display = "none";
+            expanded = false;
+        }
+    }
 
     $("#toggle-nav").on("click", function(){
         $(this).find("i").toggleClass("fa-times");
