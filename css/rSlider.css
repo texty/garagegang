@@ -9,22 +9,22 @@
 }
 .rs-container {
     font-family: Arial, Helvetica, sans-serif;
-    height: 45px;
+    height: 25px;
     position: relative;
 }
 .rs-container .rs-bg, .rs-container .rs-selected {
     //background-color: #eee;
     border: 1px solid #3F627F;
-    height: 10px;
+    height: 25px;
     left: 0;
     position: absolute;
-    top: 5px;
+    top: 0;
     width: 100%;
-    border-radius: 3px;
+    /*border-radius: 3px;*/
 }
 .rs-container .rs-selected {
-    background-color: #1381B5;
-    border: 1px solid #1381B5;
+    background-color: #3FA9F5;
+    border: 1px solid #3FA9F5;
     transition: all 0.2s linear;
     width: 0;
 }
@@ -33,31 +33,31 @@
     border-color: #bbb;
 }
 .rs-container .rs-pointer {
-    background-color: #3F627F;
+    background-color: #3FA9F5;
     //border: 1px solid #bbb;
-    border-radius: 4px;
+    /*border-radius: 4px;*/
     cursor: pointer;
-    height: 20px;
-    left: -10px;
+    height: 35px;
+    left: -3px;
     position: absolute;
-    top: 0;
+    top: -5px;
     transition: all 0.2s linear;
-    width: 20px;
+    width: 10px;
     /*box-shadow: inset 0 0 1px #FFF, inset 0 1px 6px #ebebeb, 1px 1px 4px rgba(0, 0, 0, 0.1);*/
 }
 .rs-container.disabled .rs-pointer {
     border-color: #ccc;
 }
-.rs-container .rs-pointer::before,
-.rs-container .rs-pointer::after {
-    content: '';
-    position: absolute;
-    width: 1px;
-    height: 9px;
-    background-color: #ddd;
-    left: 12px;
-    top: 5px;
-}
+/*.rs-container .rs-pointer::before,*/
+/*.rs-container .rs-pointer::after {*/
+    /*content: '';*/
+    /*position: absolute;*/
+    /*width: 1px;*/
+    /*height: 9px;*/
+    /*background-color: #ddd;*/
+    /*left: 12px;*/
+    /*top: 5px;*/
+/*}*/
 .rs-container .rs-pointer::after {
     left: auto;
     right: 12px;
@@ -71,25 +71,29 @@
 }
 .rs-container .rs-scale {
     /*width: 100%;*/
+    height: 100%;
+    color: inherit;
     left: 0;
     position: absolute;
-    top: 5px;
+    /*top: 5px;*/
     white-space: nowrap;
     display: flex;
     justify-content: space-between;
 }
 .rs-container .rs-scale span {
+    display: flex;
     float: none;
     position: relative;
+    text-align: center;
 }
  .rs-container .rs-scale span::before {
     background-color: #3F627F;
     content: "";
-    height: 8px;
+    height: 25px;
     left: 0;
     position: absolute;
-    top: 10px;
-    width: 1px;
+    top: 0;
+    width: 2px;
 }
 .rs-container.rs-noscale span::before {
     display: none;
@@ -105,10 +109,9 @@
     /*width: 0px;*/
 }
 .rs-container .rs-scale span ins {
-    //color: #333;
     display: inline-block;
     font-size: 14px;
-    margin-top: 20px;
+    margin: auto;
     text-decoration: none;
 }
 .rs-container.disabled .rs-scale span ins {

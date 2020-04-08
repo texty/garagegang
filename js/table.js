@@ -1,141 +1,30 @@
 
 var sortAscending = true;
-var table = d3.select("#wrapper").append("table").attr("id", "table");
-
+var table = d3.select("#table");
 var rows;
 
-const drawHeaders = function(targetData, multiplenest) {
 
-    d3.select("thead").remove();
-    const tableHead = table.append('thead');
-
-    const headers_title = [
-        {"name": "Назва", "correspond": "title"},
-        {"name": "К-ть голосів", "correspond": "engaged_number"},
-        {"name": "Бюджет", "correspond": "collected_amount"},
-        {"name": "Тип капіталу", "correspond": "capital"},
-        {"name": multiplenest, "correspond": multiplenest},
-        {"name": "Платформа", "correspond": multiplenest},
-        {"name": "Рік", "correspond": "any_date"},
-        {"name": "Успішність", "correspond": "status"}
-    ];
-
-    const headers =  tableHead.append('tr')
-        .selectAll('th')
-        .data(["Назва", "Платформа", "Тип капіталу", "Бюджет", "К-ть голосів", "Рік"])
-        .enter()
-        .append('th')
-        .attr("data-th", function (d) {  return d  });
-
-    //назва колонки
-    headers.append("p")
-        .text(function (d) {
-            return d
-        })
-        .on('click', function (d) {
-            let text = d3.select(this).text();
-            let selectedAttr = headers_title.filter(function(t){ return t.name === text});
-            headers.attr('class', 'header');
-            d3.selectAll("tr").attr('style', null);
-            if (sortAscending) {
-                rows.sort(function(a, b) {
-                    if(selectedAttr[0].correspond === "collected_amount" ||
-                        selectedAttr[0].correspond === "engaged_number") {
-                        return b[selectedAttr[0].correspond] - a[selectedAttr[0].correspond];
-                    } else {
-                        return d3.ascending(b[selectedAttr[0].correspond], a[selectedAttr[0].correspond]);
-                    }
-                });
-                getPagination('table');
-                sortAscending = false;
-                this.className = 'aes';
-            }
-            else {
-                rows.sort(function(a, b) {
-                    if(selectedAttr[0].correspond === "collected_amount" ||
-                        selectedAttr[0].correspond === "engaged_number") {
-                        return a[selectedAttr[0].correspond] - b[selectedAttr[0].correspond];
-                    } else {
-                        return d3.descending(b[selectedAttr[0].correspond], a[selectedAttr[0].correspond]);
-                    }
-                });
-                getPagination('table');
-                sortAscending = true;
-                this.className = 'des';
-            }
-        });
-
-    d3.selectAll('th')
-        .each(function(header) {
-            if(header === "platform" || header === "location"|| header === "Платформа" || header === "Тип капіталу" || header === "Рік") {
-                const currentNode = this;
-                //кнопочка +
-                d3.select(this)
-                    .append("h3")
-                    .text(window.innerWidth > 760 ?"+": "×")
-                    .on("click", function(){
-                        d3.select(currentNode).select("select").attr('size', window.innerWidth > 760 ? 5: 1);
-                        d3.select(currentNode).select("select").classed("hidden",  function() {
-                            return !this.classList.contains("hidden")
-                        });
-                        $(currentNode).find("select").prop('selectedIndex', -1);
-                        checkSelected(targetData, multiplenest);
-
-                        if(d3.select(currentNode).select("select").classed("hidden")){
-                            d3.select(this).text("+");
-                        } else {
-                            d3.select(this).text("×");
-                        }
-
-
-
-
-                    });
-
-                let selectedAttr = headers_title.filter(function(t){ return t.name === header});
-                var buckets = [...new Set(targetData.map(function(d) { return d[selectedAttr[0].correspond]}))];
-                //buckets.push("прибрати фільтр");
-                buckets.sort(function(a, b){ return d3.ascending(b, a);});
-
-                //select
-                var select = d3.select(this)
-                    .append("select")
-                    .attr("id", function() { return  selectedAttr[0].correspond != multiplenest ? selectedAttr[0].correspond : "platform"})
-                    .attr("class", window.innerWidth > 760 ? "hidden": "" )
-                    .attr('size', window.innerWidth > 760 ? 5: 1)
-                    .on("change", function(e){
-                        $(this).attr("size", 1);
-                        //var selectedOption = this.options[this.selectedIndex].value;
-                        checkSelected(targetData, multiplenest);
-                        //         $("#table td.platform:contains('" + selectedOption + "')").parent().show();
-                        //         $("#table td.platform:not(:contains('" + selectedOption + "'))").parent().hide();
-
-                    });
-
-
-
-                select.selectAll("option")
-                    .data(buckets)
-                    .enter()
-                    .append("option")
-                    .text(function(d){ return d; })
-                    .attr("value", function(d){ return d != "прибрати фільтр"?d:""; });
-                }
-            });
-};
-
-
-
-const drawTable = function (targetData, multiplenest) {
-    targetData.forEach(function (d) {
-        d.collected_amount = +d.collected_amount;
-        d.engaged_number = +d.engaged_number;
-    });
+const drawTable = function (targetData, value_type, odd_fill) {
+    
+    var amount = value_type === "engaged_number"? "К-ть голосів" : "Бюджет, грн";
 
     d3.select("tbody").remove();
-    const tableBody = table.append('tbody');
+    d3.select("thead").remove();
 
-    //table body
+    const tableHead = table.append('thead'),
+        tableBody = table.append('tbody');
+
+
+    //table header
+    tableHead.append('tr').selectAll('th')
+        .data(["Назва проекту", amount, "Рік"]).enter()
+        .append('th')
+        .attr("data-th",function (d) {
+                return d
+        })
+        .text(function (d) { return d; });
+
+   
     rows = tableBody.selectAll('tr')
         .data(targetData)
         .enter()
@@ -147,33 +36,25 @@ const drawTable = function (targetData, multiplenest) {
         .text(function (d) {
             return d.title.replace('^"', '');
         });
+    //
+    // rows.append('td')
+    //     .attr("class", "platform")
+    //     .text(function (d) {
+    //         return d.platform;
+    //     });
+    //
+    //
+    // rows.append('td')
+    //     .attr("data-th", "Тип капіталу")
+    //     .attr("class", "capital")
+    //     .text(function (d) {
+    //         return d.capital
+    //     });
 
     rows.append('td')
-        .attr("data-th", multiplenest)
-        .attr("class", "platform")
+        .attr("data-th", value_type)
         .text(function (d) {
-            return d[multiplenest];
-        });
-
-
-    rows.append('td')
-        .attr("data-th", "Тип капіталу")
-        .attr("class", "capital")
-        .text(function (d) {
-            return d.capital
-        });
-
-    rows.append('td')
-        .attr("data-th", "Бюджет")
-        .text(function (d) {
-            return d.collected_amount;
-        });
-
-    rows.append('td')
-        .attr("data-th", "К-ть голосів")
-        .attr("class", "flex-mobile")
-        .text(function (d) {
-            return d.engaged_number;
+            return formatValue(d[value_type]);
         });
 
     rows.append('td')
@@ -183,14 +64,16 @@ const drawTable = function (targetData, multiplenest) {
             return d.any_date;
         });
 
-    // rows.append('td')
-    //     .attr("data-th", "Успішність")
-    //     .attr("class", "status")
-    //     .text(function (d) {
-    //         return d.status;
-    //     });
+    $("tbody > tr:nth-child(odd)").css("background-color", odd_fill);
 
     getPagination('table');
+
+    // var theTable = $('#table').DataTable({
+    //     responsive: true,
+    //     "order": [[0, "desc"]],
+    //     "pageLength": 10
+    // });
+
 };
 
 
@@ -282,74 +165,8 @@ const drawTable = function (targetData, multiplenest) {
  }
 
 
-//перемальовуємо таблицю, після селекту
-const checkSelected = function(targetData, multiplenest){
-    var capitalCol =  document.getElementById("capital");
-    var capitalColVal = capitalCol.selectedIndex >= 0 ? capitalCol.options[capitalCol.selectedIndex].value : null;
 
-
-    var platformCol = document.getElementById("platform");
-    var platformColVal = platformCol.selectedIndex >= 0 ? platformCol.options[platformCol.selectedIndex].value : null;
-
-    var yearCol = document.getElementById("any_date");
-    var yearColVal = yearCol.selectedIndex >= 0? yearCol.options[yearCol.selectedIndex].value : null;
-
-    // var statusCol = document.getElementById("statusCol");
-    // var statusColVal = statusCol.selectedIndex >= 0? statusCol.options[statusCol.selectedIndex].value : null;
-
-    if(capitalColVal && yearColVal && platformColVal){
-        let table_data = targetData.filter(function(d){
-            return d.capital === capitalColVal && d[multiplenest] === platformColVal && d.any_date === yearColVal
-        });
-        drawTable(table_data, multiplenest);
-        getPagination('table');
-    } else if(capitalColVal && yearColVal){
-        let table_data = targetData.filter(function(d){
-            return d.capital === capitalColVal && d.any_date === yearColVal
-        });
-        drawTable(table_data, multiplenest);
-        getPagination('table');
-    } else if(capitalColVal && platformColVal){
-        let table_data = targetData.filter(function(d){
-            return d.capital === capitalColVal && d[multiplenest] === platformColVal
-        });
-        drawTable(table_data, multiplenest);
-        getPagination('table');
-    } else if(yearColVal && platformColVal){
-        let table_data = targetData.filter(function(d){
-            return d[multiplenest] === platformColVal && d.any_date === yearColVal
-        });
-        drawTable(table_data, multiplenest);
-        getPagination('table');
-    } else if(capitalColVal) {
-        let table_data = targetData.filter(function(d){
-            return d.capital === capitalColVal
-        });
-        drawTable(table_data, multiplenest);
-        getPagination('table');
-    }  else if(yearColVal){
-        let table_data = targetData.filter(function(d){
-            return d.any_date === yearColVal
-        });
-        drawTable(table_data, multiplenest);
-        getPagination('table');
-    } else if(platformColVal){
-        let table_data = targetData.filter(function(d){
-            return d[multiplenest] === platformColVal
-        });
-        drawTable(table_data, multiplenest);
-        getPagination('table');
-    } else if(!capitalColVal && !yearColVal && !platformColVal){
-        drawTable(targetData, multiplenest);
-        getPagination('table');
-    }
-
-};
-
-
-
-
-
+//налаштування для таблиці - мова, порядок сортування, довжина, приховані колонки
 
 
 

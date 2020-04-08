@@ -19,11 +19,11 @@
 
 <main>
 
-    <h1>
+    <h1>Платформи
         <select id="platform_type" class="heading-select">
-            <option value="Краудфандинг">Платформи краудфандингові</option>
-            <option value="Громадський бюджет">Громадський бюджет</option>
-        </select>,
+            <option value="Краудфандинг">краудфандингові</option>
+            <option value="Громадський бюджет">громадського бюджету</option>
+        </select>, <br>
         <select id="value_type" class="heading-select">
             <option value="collected_amount">бюджети</option>
             <option value="engaged_number">кількість голосів</option>
@@ -39,97 +39,62 @@
         </select></h1>
 
 
-<nav>
-    <div style="padding: 5px;">
-        <p id="toggle-nav" title="згорнути"><i class="fas fa-times"></i></p>
-
+    <nav>
         <div class="accordion">
-            <!--<div id="buttons">-->
-                <!--<div>-->
-                    <!--<p>Оберіть тип платформи:</p>-->
-                    <!--<button id="craudf" class="select-platform button active" value="platform">Краунфандінг</button>-->
-                    <!--<button id="budget" class="select-platform button" value="location">Громадський бюджет</button>-->
-                <!--</div>-->
-                <!--<div>-->
-                    <!--<p>Оберіть голоси або гроші:</p>-->
-                    <!--<button id="money" class="select-type button active" >Бюджет</button>-->
-                    <!--<button id="voices" class="select-type button">Кількість голосів</button>-->
-                <!--</div>-->
-
-            <!--</div>-->
-
-        <p>Оберіть період: </p>
+        <p class="subtitle">Оберіть період: </p>
             <input type="text" id="slider" class="slider">
         </div>
-
-    </div>
-    <ul id="legend">
-        <li><span style="background-color: #5CE577"></span>Культурний капітал</li>
-        <li><span style="background-color: #4A80FF"></span>Соціальний</li>
-        <li><span style="background-color: #EAEDA0"></span>Людський</li>
-        <li><span style="background-color: #EB6AC2"></span>Інфраструктурний</li>
-        <li><span style="background-color: white"></span>Економічний</li>
-    </ul>
-
-    <!--<p style="color: rgba(250,250,250, 0.9)"> Клікніть на будь-який стовбчик, щоб відфільтрувати результати в табличці під графіками</p>-->
-</nav>
+    </nav>
 
 
-
-    <div id="chart-wrapper">
-        <!--<div id="chart"></div>-->
-        <svg id="chart" width="650" height="400"></svg>
-
-            <form>
-                <div class="multiselect">
-                    <div class="selectBox" onclick="showCheckboxes()">
-                        <select>
-                            <option>Обрати</option>
-                        </select>
-                        <div class="overSelect"></div>
-                    </div>
-                    <div id="checkboxes">
-                        <!--<label for="one">-->
-                            <!--<input name="platform" type="checkbox" id="one" value="UBB" />UBB</label>-->
-                        <!--<label for="two">-->
-                            <!--<input name="platform" type="checkbox" id="two" value="Second" />Second</label>-->
-                        <!--<label for="three">-->
-                            <!--<input name="platform" type="checkbox" id="three" value="Third" />Third</label>-->
-
-                        <button id="checked-platforms" type="button">Обрати</button>
-                    </div>
-
-
-
+    <div id="legend-wrapper">
+        <p class="subtitle">Тип капіталу:</p>
+        <form>
+            <div class="multiselect">
+                <div class="selectBox" onclick="showCheckboxes()">
+                    <select>
+                        <option>Додати фільтр</option>
+                    </select>
+                    <div class="overSelect"></div>
                 </div>
+                <div id="checkboxes">
+                    <label style="margin-bottom: 10px; font-weight: bold">
+                        <input name='select-all' type='checkbox' id='select-all' value='select-all'/>Обрати всі</label>
+                    <button id="checked-platforms" type="button">OK</button>
+                </div>
+            </div>
+            <!---->
 
-            </form>
+        </form>
+        <div id="capital-legend">
+            <ul id="legend">
+                <li style="color: #EB6AC2">Інфраструктурний</li>
+                <li style="color: #5CE577">Культурний</li>
+                <li style="color: #EAEDA0">Людський</li>
+                <li style="color: #4A80FF">Соціальний</li>
 
-            <!--<button id="redraw">redraw</button>-->
+            </ul>
         </div>
     </div>
 
+    <div id="chart-wrapper">
+        <div id="chart">
+            <svg></svg>
+        </div>
+        <div>
+            <h3 class="table-title subtitle"></h3>
+            <table id="table"></table>
+
+            <div class='pagination-container' >
+                <ul class="pagination">
+                </ul>
+            </div>
+        </div>
+    </div>
 </main>
 
 
 <div id="wrapper"></div>
-
-<!--		Start Pagination -->
-
-
-<div class='pagination-container' >
-        <ul class="pagination">
-
-            <!--<li data-page="prev">-->
-                <!--<span> < <span class="sr-only"></span></span>-->
-            <!--</li>-->
-            	<!--&lt;!&ndash;Here the JS Function Will Add the Rows&ndash;&gt;-->
-            <!--<li data-page="next" id="prev">-->
-                <!--<span> > <span class="sr-only"></span></span>-->
-            <!--</li>-->
-        </ul>
-</div>
-
 
 
 
@@ -140,33 +105,16 @@
 <script src="lib/underscore-min.js"></script>
 <script src="lib/rSlider.js"></script>
 <!--<script src="lib/jquery.dataTables.min.js"></script>-->
-<!--<script src="js/table.js"></script>-->
 
 <!--<script src="js/main.js"></script>-->
 <!--<script src="js/barcharts.js"></script>-->
 <script src="js/stackesBars.js"></script>
+<script src="js/table.js"></script>
+
 
 <script>//обрані роки
-    var startYear = '2016', endYear = '2019';
 
-    var mySlider = new rSlider({
-        target: '#slider',
-        values: [2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020],
-        range: true,
-        set: [2016, 2019],
-        width:    null,
-        scale:    true,
-        labels:   true,
-        tooltip:  false,
-        step:     1,
-        disabled: false,
-        onChange: function (vals) {
-            startYear = vals.split(",")[0];
-            endYear = vals.split(",")[1];
-//            draw(currentData, startYear, endYear, yCount);
-        }
-    });
-
+const formatValue = d3.format(".2s");
 
 
     var expanded = false;
@@ -174,6 +122,7 @@
     function showCheckboxes() {
         var checkboxes = document.getElementById("checkboxes");
         if (!expanded) {
+            $(".selectBox select").removeClass("warning");
             checkboxes.style.display = "block";
             expanded = true;
         } else {
