@@ -27,7 +27,7 @@ body {
 }
 
 h1 {
-  font-size: 40px;
+  font-size: calc(20px + 1.5vw);
   font-weight: bold;
   display: block;
   width: 80%;
@@ -44,7 +44,7 @@ h3 {
 select.heading-select {
   background-color: #3FA9F5;
   color: white;
-  font-size: 40px;
+  font-size: calc(20px + 1.5vw);
   font-weight: bold;
 }
 

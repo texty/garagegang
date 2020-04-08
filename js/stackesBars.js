@@ -2,23 +2,32 @@ const color = d3.scaleOrdinal()
     .domain(["Культурний", "Соціальний","Людський", "Інфраструктурний"])
     .range(["#5CE577", "#4A80FF", "#EAEDA0", "#EB6AC2"]);
 
-
 var startYear = '2016',
     endYear = '2019',
+
+    //значення селектів в заголовку
     platform_type = $("#platform_type").children("option:selected").val(),
     value_type = $("#value_type").children("option:selected").val(),
     status_type = $("#status_type").children("option:selected").val(),
     percents_or_absolutes = $("#percents_or_absolutes").children("option:selected").val(),
     platform_or_location = platform_type === "Краудфандинг" ? "platform" : "location",
-    favorite = [];
 
-var mySlider;
+    //значення додані до фільтру
+    favorite = [],
+
+    mySlider,
+
+    //змінні для відмальовки таблиці
+    table_data,
+    odd_fill,
+    clicked_capital,
+    istable = false;
 
 
 
-    $('#select-all').click(function(event) {
+//select-all та unselect-all у фільтру платформ ліворуч від графіка
+$('#select-all').click(function(e) {
     if(this.checked) {
-        // Iterate each checkbox
         $(':checkbox').each(function() {
             this.checked = true;
             favorite = [];
@@ -33,9 +42,11 @@ var mySlider;
 
 
 d3.csv("data/data.csv").then(function(csv){
+    //перелік унікальних назв платформ
     var platform_list  = [...new Set(csv.filter(function(d){
             return d.platform_type === "Краудфандинг" && d.status  === "Успішний"}).map(function(d) { return d["platform"] }))];
 
+    //перелік унікальних назв міст
     var location_list =   [...new Set(csv.filter(function(d){
             return d.platform_type != "Краудфандинг" && d.status  === "Успішний"}).map(function(d) { return d["location"] }))];
 
@@ -45,13 +56,22 @@ d3.csv("data/data.csv").then(function(csv){
 
     chart(default_data, value_type, percents_or_absolutes, platform_or_location);
 
+
+    /* -----SELECTS ON CHANGE  ------- */
+
     //коли міняємо платформу
     $("#platform_type").on('change', function(){
+        //не показувати таблицю, бо ще нічого не клікнуто
+        istable = false;
+
+        //обраних у фільтрі знову немає, все перемалювалось
         favorite = [];
+
+        //змінюємо значення змінної platform_type і platform_or_location змінюється відповідно до неї
         platform_type = $("#platform_type").children("option:selected").val();
         platform_or_location = platform_type === "Краудфандинг" ? "platform" : "location";
 
-        //прибираємо поле успішні/неуспішні для громадського бюджету
+        //прибираємо поле успішні/неуспішні для громадського бюджету, міняємо years range на слайдері
         if(platform_type != "Краудфандинг") {
             $("#status_type").css("display", "none");
             status_type = "Успішний";
@@ -71,7 +91,7 @@ d3.csv("data/data.csv").then(function(csv){
         d3.select("thead").remove();
         d3.select(".table-title").html("");
         d3.selectAll("ul.pagination li").remove();
-
+        $(".hint").css("display", "block");
 
         //дані НЕ ВКЛЮЧАЮТЬ FAVORITES, бо змінюється платформа
         let dataData = csv.filter(function(d){
@@ -80,12 +100,15 @@ d3.csv("data/data.csv").then(function(csv){
         chart(dataData, value_type, percents_or_absolutes, platform_or_location);
     });
 
+
     //коли міняємо інші селекти
     $('.heading-select:not(#platform_type)').on('change', function() {
+        //перевизначаємо змінні
         value_type = $("#value_type").children("option:selected").val();
         status_type = $("#status_type").children("option:selected").val();
         percents_or_absolutes = $("#percents_or_absolutes").children("option:selected").val();
-        //дані ВКЛЮЧАЮТЬ FAVORITES, бо змінюється платформа
+
+        //дані ВКЛЮЧАЮТЬ FAVORITES, тобто можна дивиитись інші параметри для вже обраних міст/платформ
         var dataData;
         if(favorite && favorite.length > 0){
             dataData = csv.filter(function(d){
@@ -101,7 +124,29 @@ d3.csv("data/data.csv").then(function(csv){
     });
 
 
-    //намалювати обрані міста/платформи
+
+    //якщо переключаємо успішні/неуспішні проекти, таблицю видаляємо, бо змінились проекти
+    $('#status_type').on('change', function() {
+        //видаляємо таблицю
+        d3.select("tbody").remove();
+        d3.select("thead").remove();
+        d3.select(".table-title").html("");
+        d3.selectAll("ul.pagination li").remove();
+        $(".hint").css("display", "block");
+        $("svg rect").attr("stroke-width", 0)
+    });
+
+    //якщо переключаємо кількість голосів/бюджет таблицю перемальовуємо
+    d3.select('#value_type').on('change', function() {
+        if(istable){
+            $(".hint").css("display", "none");
+            drawTable(table_data, value_type, odd_fill)
+        }
+    });
+
+
+    /* ----- FILTER ON CHANGE  ------- */
+    //реакція на фільтр, малюємо обрані обрані міста/платформи
     $("button#checked-platforms").click(function(){
         $("#select-all").prop( "checked", false );
         favorite = [];
@@ -126,9 +171,6 @@ d3.csv("data/data.csv").then(function(csv){
     });
 
 
-
-
-
     //додати опіції в чекліст - міняємо при переключенні між краудфандінгом і громадським бюджетом
     change_checkList("platform");
 
@@ -150,6 +192,7 @@ d3.csv("data/data.csv").then(function(csv){
     }
 
 
+    /* ----- create slider  ------ */
     createSlider(2012, 2021);
 
     function createSlider(minValue, maxValue) {
@@ -178,6 +221,14 @@ d3.csv("data/data.csv").then(function(csv){
                     });
                 }
 
+                //видаляємо таблицю
+                d3.select("tbody").remove();
+                d3.select("thead").remove();
+                d3.select(".table-title").html("");
+                d3.selectAll("ul.pagination li").remove();
+                $(".hint").css("display", "block");
+
+                //малюємо новий графік
                 chart(dataData, value_type, percents_or_absolutes, platform_or_location);
             }
         });
@@ -186,34 +237,46 @@ d3.csv("data/data.csv").then(function(csv){
 
 
 
-
-
 /* функція відмальовки */
 function chart(data, xValue, scale, yVal) {
     var platforms  = [...new Set(data.map(function(d) { return d[yVal] }))];
     var capitals  = [...new Set(data.map(function(d) { return d.capital }))];
+
+    //сюди пушимо загальні значення по кожній платформі, щоб потім порахувати d3.max для x-axis
     var all_amounts = [];
+
+    //сюди пушимо кожен рядок підготованих даних для stacked bar
     var df = [];
 
-
+    //reshape data for stacked bar format
     platforms.forEach(function(platform){
+        //сюди будемо пушити значення для всіх капіталів по поточній платформі:
         var cap_df = [];
+
+        //проходимось по кожному капіталу:
         ["Інфраструктурний", "Культурний", "Людський", "Соціальний" ].forEach(function(capital){
+            //фільтруємо дані по платформі і капіталу, наприклад, всі інфраструктурні проекти по Київу
             var filtered = data.filter(function(d){
                 return d[yVal] === platform && d.capital === capital });
 
+            //загальна сума бюджету, або к-ть голосів по платформі і капіталу
             var amount = filtered.reduce(function(a, b) {
                 return a + +b[xValue];
             }, 0);
 
+            //створюємо частину майбутнього рядку: к-ть голосів або бюджет по поточному капіталу
             var ob = { "capital": capital, "amount": amount };
+
+            //пушиму значення у cap_df
             cap_df.push(ob);
         });
 
+        //рахуємо загальну кількість бюджету або голосів, щоб порахувати відсотки для кожного капіталу
         var total = cap_df.reduce(function(a, b) {
             return a + +b["amount"];
         }, 0);
 
+        //створюємо один рядок даних із cap_df, він різний для шкали з відсотками та шкали абсолютних значень.
         var row;
         if(scale === "percents"){
                 row = { "platform": platform,
@@ -239,20 +302,20 @@ function chart(data, xValue, scale, yVal) {
         df.push(row);
     });
 
+
+    //сортуємо дані (щоб від більшої абсолютної цифри для абсолютних цифр
     if (scale === "absolutes"){
         df.sort(function(a, b) { return  b.total - a.total });
     } else {
         df.sort(function(a, b) { return  a["Інфраструктурний"] - b["Інфраструктурний"] });
     }
 
-
     var subgroups = ["Інфраструктурний", "Культурний", "Людський", "Соціальний" ];
 
     var svg = d3.select("#chart svg"),
         margin = {top: 50, left: 130, bottom: 50, right: 20},
         width = d3.select("#chart").node().getBoundingClientRect().width,
-        height = (platforms.length * 30) + margin.bottom;
-
+        height = (platforms.length * 30) + margin.bottom; //плаваюча, залежно від кількості платформ
 
     svg.attr("height", height)
         .attr("width", width);
@@ -264,11 +327,11 @@ function chart(data, xValue, scale, yVal) {
     var x = d3.scaleLinear()
         .range([margin.left, width - margin.right]);
 
-    var xAxis = svg.append("g")
+    svg.append("g")
         .attr("transform", "translate(0," + (height - margin.bottom) + ")")
         .attr("class", "x-axis");
 
-    var yAxis = svg.append("g")
+    svg.append("g")
         .attr("transform", `translate(${margin.left},0)`)
         .attr("class", "y-axis");
 
@@ -278,25 +341,20 @@ function chart(data, xValue, scale, yVal) {
 
     y.domain(groups);
 
-
-
     svg.select(".y-axis")
         .transition()
         .duration(500)
         .call(d3.axisLeft(y));
 
 
-    if (scale === "abs") {
+    //різний x.domain для відсотків та цифр
+    if (scale === "absolutes") {
         x.domain([0, d3.max(all_amounts, function (d) {
             return d;
         })])
     } else {
         x.domain([0, 100])
     }
-
-    x.domain([0, d3.max(all_amounts, function (d) {
-        return d;
-    })]);
 
     svg.select(".x-axis")
         .transition()
@@ -311,58 +369,44 @@ function chart(data, xValue, scale, yVal) {
     var group = svg.selectAll("g.layer")
         .data(stackedData);
 
-
     group.exit().remove();
 
     group.enter()
         .append("g")
         .classed("layer", true)
-        .attr("fill", function (d) {
-            return color(d.key)
-        })
-        .attr("capital", function (d) {
-            return d.key
-        });
+        .attr("fill", function (d) { return color(d.key) })
+        .attr("capital", function (d) { return d.key });
 
     var bars = svg.selectAll("g.layer")
             .selectAll("rect")
-            .data(function (d) {
-                return d;
-            });
+            .data(function (d) { return d; });
 
     bars.exit().remove();
 
     bars.enter()
         .append("rect")
-        .attr("y", function (d) {
-            return y(d.data.platform);
-        })
-        .attr("x", function (d) {
-            return x(0);
-        })
-
+        .attr("y", function (d) {  return y(d.data.platform); })
+        .attr("x", function (d) { return x(0); })
         .attr("height", y.bandwidth())
         .merge(bars)
         .on("click", function (d) {
-            var clicked_capital = d3.select(this.parentNode).attr("capital");
-            var odd_fill = d3.select(this.parentNode).attr("fill");
-            console.log(odd_fill);
-            var table_data = data.filter(function(p) {
-                return p[platform_or_location] === d.data.platform && p.capital === clicked_capital;
-            });
-            console.log(table_data);
-            d3.select(".table-title").html(d.data.platform +". проекти " + clicked_capital.replace("ий", "ого") + "  капіталу");
-            drawTable(table_data, xValue, odd_fill)
+            //додаємо обводку до клікнутого прямокутника
+            d3.selectAll("svg rect").attr("stroke",  "white").attr("stroke-width", "0");
+            d3.select(this).attr("stroke",  "white").attr("stroke-width", "2px");
+            $(".hint").css("display", "none");
+
+            //замінюємо потрібні для табличці змінні
+            istable = true;
+            clicked_capital = d3.select(this.parentNode).attr("capital");
+            odd_fill = d3.select(this.parentNode).attr("fill");
+
+            //малюємо табличку
+            table_data = data.filter(function(p) { return p[platform_or_location] === d.data.platform && p.capital === clicked_capital;  });
+            d3.select(".table-title").html(d.data.platform + ". проєкти " + clicked_capital.replace("ий", "ого") + "</span>  капіталу. " + startYear +" - " + (endYear-1));
+            drawTable(table_data, value_type, odd_fill);
         })
-        .transition()
-        .duration(500)
-        .attr("y", function (d) {
-            return y(d.data.platform);
-        })
-        .attr("x", function (d) {
-            return x(d[0]);
-        })
-        .attr("width", function (d) {
-            return x(d[1]) - x(d[0]);
-        });
+        .transition().duration(500)
+        .attr("y", function (d) { return y(d.data.platform); })
+        .attr("x", function (d) { return x(d[0]); })
+        .attr("width", function (d) { return x(d[1]) - x(d[0]);  });
 }
