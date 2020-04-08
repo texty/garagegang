@@ -12,9 +12,11 @@ var startYear = '2016',
     platform_or_location = platform_type === "Краудфандинг" ? "platform" : "location",
     favorite = [];
 
+var mySlider;
 
 
-$('#select-all').click(function(event) {
+
+    $('#select-all').click(function(event) {
     if(this.checked) {
         // Iterate each checkbox
         $(':checkbox').each(function() {
@@ -53,9 +55,12 @@ d3.csv("data/data.csv").then(function(csv){
         if(platform_type != "Краудфандинг") {
             $("#status_type").css("display", "none");
             status_type = "Успішний";
+            mySlider.destroy();
+            createSlider(2016, 2021);
         } else {
             $("#status_type").css("display", "inline-block");
-
+            mySlider.destroy();
+            createSlider(2012, 2021);
         }
 
         //міняємо чеклист
@@ -64,6 +69,7 @@ d3.csv("data/data.csv").then(function(csv){
         //видаляємо таблицю
         d3.select("tbody").remove();
         d3.select("thead").remove();
+        d3.select(".table-title").html("");
         d3.selectAll("ul.pagination li").remove();
 
 
@@ -143,38 +149,39 @@ d3.csv("data/data.csv").then(function(csv){
             });
     }
 
-//
 
-    var mySlider = new rSlider({
-        target: '#slider',
-        values: [2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021],
-        range: true,
-        set: [2012, 2021],
-        width:    null,
-        scale:    true,
-        labels:   true,
-        tooltip:  false,
-        step:     1,
-        disabled: false,
-        onChange: function (vals) {
-            startYear = vals.split(",")[0];
-            endYear = vals.split(",")[1];
-            var dataData;
-            if(favorite && favorite.length > 0){
-                dataData = csv.filter(function(d){
-                    return d.platform_type === platform_type &&  d.status === status_type && d.capital != "Економічний" && favorite.includes(d[platform_or_location]) && +d.any_date >= +startYear && +d.any_date < +endYear
-                });
-            } else {
-                dataData = csv.filter(function(d){
-                    return d.platform_type === platform_type &&  d.status === status_type && d.capital != "Економічний" && +d.any_date >= +startYear && +d.any_date < +endYear
-                });
+    createSlider(2012, 2021);
+
+    function createSlider(minValue, maxValue) {
+        mySlider = new rSlider({
+            target: '#slider',
+            values: {min: minValue, max: maxValue},
+            range: true,
+            set: [2012, 2021],
+            width: null,
+            scale: true,
+            labels: true,
+            tooltip: false,
+            step: 1,
+            disabled: false,
+            onChange: function (vals) {
+                startYear = vals.split(",")[0];
+                endYear = vals.split(",")[1];
+                var dataData;
+                if (favorite && favorite.length > 0) {
+                    dataData = csv.filter(function (d) {
+                        return d.platform_type === platform_type && d.status === status_type && d.capital != "Економічний" && favorite.includes(d[platform_or_location]) && +d.any_date >= +startYear && +d.any_date < +endYear
+                    });
+                } else {
+                    dataData = csv.filter(function (d) {
+                        return d.platform_type === platform_type && d.status === status_type && d.capital != "Економічний" && +d.any_date >= +startYear && +d.any_date < +endYear
+                    });
+                }
+
+                chart(dataData, value_type, percents_or_absolutes, platform_or_location);
             }
-
-            chart(dataData, value_type, percents_or_absolutes, platform_or_location);
-        }
-    })
-
-
+        });
+    }
 });
 
 

@@ -34,7 +34,7 @@
 }
 .rs-container .rs-pointer {
     background-color: #3FA9F5;
-    //border: 1px solid #bbb;
+    /*//border: 1px solid #bbb;*/
     /*border-radius: 4px;*/
     cursor: pointer;
     height: 35px;
@@ -109,6 +109,8 @@
     /*width: 0px;*/
 }
 .rs-container .rs-scale span ins {
+    color: white;
+    font-weight: 600;
     display: inline-block;
     font-size: 14px;
     margin: auto;
