@@ -83,15 +83,9 @@ d3.csv("data/data.csv").then(function(csv){
             createSlider(2012, 2021);
         }
 
-        //міняємо чеклист
         change_checkList(platform_or_location);
-
-        //видаляємо таблицю
-        d3.select("tbody").remove();
-        d3.select("thead").remove();
-        d3.select(".table-title").html("");
-        d3.selectAll("ul.pagination li").remove();
-        $(".hint").css("display", "block");
+        
+        removeTable();
 
         //дані НЕ ВКЛЮЧАЮТЬ FAVORITES, бо змінюється платформа
         let dataData = csv.filter(function(d){
@@ -127,13 +121,7 @@ d3.csv("data/data.csv").then(function(csv){
 
     //якщо переключаємо успішні/неуспішні проекти, таблицю видаляємо, бо змінились проекти
     $('#status_type').on('change', function() {
-        //видаляємо таблицю
-        d3.select("tbody").remove();
-        d3.select("thead").remove();
-        d3.select(".table-title").html("");
-        d3.selectAll("ul.pagination li").remove();
-        $(".hint").css("display", "block");
-        $("svg rect").attr("stroke-width", 0)
+        removeTable();
     });
 
     //якщо переключаємо кількість голосів/бюджет таблицю перемальовуємо
@@ -148,6 +136,8 @@ d3.csv("data/data.csv").then(function(csv){
     /* ----- FILTER ON CHANGE  ------- */
     //реакція на фільтр, малюємо обрані обрані міста/платформи
     $("button#checked-platforms").click(function(){
+        removeTable();
+
         $("#select-all").prop( "checked", false );
         favorite = [];
 
@@ -155,7 +145,6 @@ d3.csv("data/data.csv").then(function(csv){
             favorite.push($(this).val());
             $(this).prop( "checked", false );
         });
-
 
         $("#checkboxes").css("display", "none");
 
@@ -222,11 +211,7 @@ d3.csv("data/data.csv").then(function(csv){
                 }
 
                 //видаляємо таблицю
-                d3.select("tbody").remove();
-                d3.select("thead").remove();
-                d3.select(".table-title").html("");
-                d3.selectAll("ul.pagination li").remove();
-                $(".hint").css("display", "block");
+                removeTable();
 
                 //малюємо новий графік
                 chart(dataData, value_type, percents_or_absolutes, platform_or_location);
@@ -409,4 +394,15 @@ function chart(data, xValue, scale, yVal) {
         .attr("y", function (d) { return y(d.data.platform); })
         .attr("x", function (d) { return x(d[0]); })
         .attr("width", function (d) { return x(d[1]) - x(d[0]);  });
+}
+
+
+function removeTable() {
+    //видаляємо таблицю
+    d3.select("tbody").remove();
+    d3.select("thead").remove();
+    d3.select(".table-title").html("");
+    d3.selectAll("ul.pagination li").remove();
+    $(".hint").css("display", "block");
+    $("svg rect").attr("stroke-width", 0);
 }

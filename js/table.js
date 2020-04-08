@@ -5,17 +5,16 @@ var rows;
 
 
 const drawTable = function (targetData, value_type, odd_fill) {
-    
-    var amount = value_type === "engaged_number"? "К-ть голосів" : "Бюджет, грн";
 
     d3.select("tbody").remove();
     d3.select("thead").remove();
+    
+    var amount = value_type === "engaged_number"? "К-ть голосів" : "Бюджет, грн";    
 
     const tableHead = table.append('thead'),
         tableBody = table.append('tbody');
 
 
-    //table header
     tableHead.append('tr').selectAll('th')
         .data(["Назва проекту", amount, "Рік"]).enter()
         .append('th')
@@ -24,56 +23,26 @@ const drawTable = function (targetData, value_type, odd_fill) {
         })
         .text(function (d) { return d; });
 
-   
     rows = tableBody.selectAll('tr')
-        .data(targetData)
-        .enter()
+        .data(targetData).enter()
         .append('tr');
-
 
     rows.append("td")
         .attr("data-th", "Назва")
-        .text(function (d) {
-            return d.title.replace('^"', '');
-        });
-    //
-    // rows.append('td')
-    //     .attr("class", "platform")
-    //     .text(function (d) {
-    //         return d.platform;
-    //     });
-    //
-    //
-    // rows.append('td')
-    //     .attr("data-th", "Тип капіталу")
-    //     .attr("class", "capital")
-    //     .text(function (d) {
-    //         return d.capital
-    //     });
+        .text(function (d) { return d.title.replace('^"', ''); });
 
     rows.append('td')
-        .attr("data-th", value_type)
-        .text(function (d) {
-            return formatValue(d[value_type]);
-        });
+        .attr("data-th", amount)
+        .text(function (d) { return formatValue(d[value_type]);  });
 
     rows.append('td')
         .attr("data-th", "Рік")
         .attr("class", "year")
-        .text(function (d) {
-            return d.any_date;
-        });
+        .text(function (d) { return d.any_date; });
 
     $("tbody > tr:nth-child(odd)").css("background-color", odd_fill);
 
     getPagination('table');
-
-    // var theTable = $('#table').DataTable({
-    //     responsive: true,
-    //     "order": [[0, "desc"]],
-    //     "pageLength": 10
-    // });
-
 };
 
 
@@ -163,10 +132,6 @@ const drawTable = function (targetData, value_type, odd_fill) {
          }
      }
  }
-
-
-
-//налаштування для таблиці - мова, порядок сортування, довжина, приховані колонки
 
 
 
