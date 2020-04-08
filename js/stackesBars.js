@@ -191,8 +191,8 @@ d3.csv("data/data.csv").then(function(csv){
             });
     }
 
-
-    /* ----- create slider  ------ */
+    
+    /* ----- SLIDER  ------ */
     createSlider(2012, 2021);
 
     function createSlider(minValue, maxValue) {
@@ -200,7 +200,7 @@ d3.csv("data/data.csv").then(function(csv){
             target: '#slider',
             values: {min: minValue, max: maxValue},
             range: true,
-            set: [2012, 2021],
+            set: [minValue, maxValue],
             width: null,
             scale: true,
             labels: true,
