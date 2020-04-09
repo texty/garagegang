@@ -41,7 +41,7 @@ $('#select-all').click(function(e) {
 });
 
 
-d3.csv("data/data.csv").then(function(csv){
+d3.csv("data/data_new.csv").then(function(csv){
     //перелік унікальних назв платформ
     var platform_list  = [...new Set(csv.filter(function(d){
             return d.platform_type === "Краудфандинг" && d.status  === "Успішний"}).map(function(d) { return d["platform"] }))];
@@ -52,7 +52,7 @@ d3.csv("data/data.csv").then(function(csv){
 
     //малюємо дефолтні бари
     let default_data = csv.filter(function(d){
-        return d.platform_type === "Краудфандинг" &&  d.status === "Успішний" && d.capital != "Економічний" && +d.any_date >= startYear && +d.any_date < endYear   });
+        return d.platform_type === "Краудфандинг" &&  d.status === "Успішний" && d.capital != "Економічний" && +d.year >= startYear && +d.year < endYear   });
 
     chart(default_data, value_type, percents_or_absolutes, platform_or_location);
 
@@ -90,7 +90,7 @@ d3.csv("data/data.csv").then(function(csv){
 
         //дані НЕ ВКЛЮЧАЮТЬ FAVORITES, бо змінюється платформа
         let dataData = csv.filter(function(d){
-            return d.platform_type === platform_type &&  d.status === status_type && d.capital != "Економічний" && +d.any_date >= startYear && +d.any_date < endYear;
+            return d.platform_type === platform_type &&  d.status === status_type && d.capital != "Економічний" && +d.year >= startYear && +d.year < endYear;
         });
         chart(dataData, value_type, percents_or_absolutes, platform_or_location);
     });
@@ -109,11 +109,11 @@ d3.csv("data/data.csv").then(function(csv){
         var dataData;
         if(favorite && favorite.length > 0){
             dataData = csv.filter(function(d){
-                return d.platform_type === platform_type &&  d.status === status_type && d.capital != "Економічний" && favorite.includes(d[platform_or_location]) && +d.any_date >= startYear && +d.any_date < endYear
+                return d.platform_type === platform_type &&  d.status === status_type && d.capital != "Економічний" && favorite.includes(d[platform_or_location]) && +d.year >= startYear && +d.year < endYear
             });
         } else {
             dataData = csv.filter(function(d){
-                return d.platform_type === platform_type &&  d.status === status_type && d.capital != "Економічний" && +d.any_date >= startYear && +d.any_date < endYear
+                return d.platform_type === platform_type &&  d.status === status_type && d.capital != "Економічний" && +d.year >= startYear && +d.year < endYear
             });
         }
 
@@ -154,7 +154,7 @@ d3.csv("data/data.csv").then(function(csv){
 
         if(favorite.length > 0) {
             let selected_data = csv.filter(function(d){
-                return d.platform_type === platform_type &&  d.status === status_type && d.capital != "Економічний" && favorite.includes(d[platform_or_location]) && +d.any_date >= startYear && +d.any_date < endYear
+                return d.platform_type === platform_type &&  d.status === status_type && d.capital != "Економічний" && favorite.includes(d[platform_or_location]) && +d.year >= startYear && +d.year < endYear
             });
             chart(selected_data, value_type, percents_or_absolutes, platform_or_location);
         } else {
@@ -206,11 +206,11 @@ d3.csv("data/data.csv").then(function(csv){
                 var dataData;
                 if (favorite && favorite.length > 0) {
                     dataData = csv.filter(function (d) {
-                        return d.platform_type === platform_type && d.status === status_type && d.capital != "Економічний" && favorite.includes(d[platform_or_location]) && +d.any_date >= +startYear && +d.any_date < +endYear
+                        return d.platform_type === platform_type && d.status === status_type && d.capital != "Економічний" && favorite.includes(d[platform_or_location]) && +d.year >= +startYear && +d.year < +endYear
                     });
                 } else {
                     dataData = csv.filter(function (d) {
-                        return d.platform_type === platform_type && d.status === status_type && d.capital != "Економічний" && +d.any_date >= +startYear && +d.any_date < +endYear
+                        return d.platform_type === platform_type && d.status === status_type && d.capital != "Економічний" && +d.year >= +startYear && +d.year < +endYear
                     });
                 }
 
