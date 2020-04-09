@@ -4,16 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Title</title>
+    <title>Гривня і голос в проєктах розвитку</title>
+    <!-- OpenGraph Meta Tags -->
+    <meta property="fb:app_id" content="329250623807149"/>
+    <meta property="og:site_name" content="ТЕКСТИ.ORG.UA"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title"
+          content="Гривня і голос в проєктах розвитку"/>
+    <meta property="og:image" content="https://texty.org.ua/d/2020/makeup/img/cover.png"/>
+    <meta property="og:description"
+          content="Що підтримують люди через учасницькі онлайн-платформи?"/>
+    <meta property="og:url" content="https://texty.org.ua/d/2020/makeup/"/>
 
-   <script src="lib/jquery-3.3.1.js"></script>
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:site" content="@textyorgua"/>
+    <meta property="twitter:account_id" content="49572937"/>
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:url" content="https://texty.org.ua/d/2020/makeup/">
+    <meta name="twitter:title"
+          content="Гривня і голос в проєктах розвитку"/>
+    <meta name="twitter:description"
+          content="Що підтримують люди через учасницькі онлайн-платформи?"/>
+    <meta name="twitter:image:src" content="https://texty.org.ua/d/2020/makeup/img/cover.png"/>
+    <meta name="twitter:image:width" content="1200"/>
+    <meta name="twitter:image:height" content="630"/>
+
+
+    <!-- Other Meta Tags -->
+
+    <meta name="title"
+          content="Гривня і голос в проєктах розвитку">
+    <meta name="description"
+          content="Що підтримують люди через учасницькі онлайн-платформи?">
 
 
     <!-- Links-->
-    <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link rel="stylesheet" href="css/rSlider.css">
-    <!--<link rel="stylesheet" href="css/jquery.dataTables.min.css"/>-->
     <link rel="stylesheet" href="css/styles.css"/>
+
 </head>
 <body>
 
@@ -68,10 +98,10 @@
         </form>
         <div id="capital-legend">
             <ul id="legend">
-                <li style="color: #EB6AC2">Інфраструктурний</li>
-                <li style="color: #5CE577">Культурний</li>
-                <li style="color: #EAEDA0">Людський</li>
-                <li style="color: #4A80FF">Соціальний</li>
+                <li style="color: #EB6AC2">Інфраструктурний <span id="infrastructure-button">&#x24D8;</span></li>
+                <li style="color: #5CE577">Культурний <span id="cultural-button">&#x24D8;</span></li>
+                <li style="color: #EAEDA0">Людський <span id="human-button">&#x24D8;</span></li>
+                <li style="color: #4A80FF">Соціальний <span id="social-button">&#x24D8;</span></li>
 
             </ul>
         </div>
@@ -93,11 +123,48 @@
     </div>
 </main>
 
+<section id="created_by_texty">
+    <div>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=" class="share-btn"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://twitter.com/intent/tweet?text=" class="share-btn"><i class="fab fa-twitter"></i></a>
+        <h3>Створено Текстами</h3>
+    </div>
+    <div>
+        <a href="http://texty.org.ua/" target="_blank">
+            <img style="display: block; margin: auto;" src="img/textylogo.svg" alt="texty.org.ua">
+        </a>
+    </div>
+</section>
+
+<div id="infrastructure" class="addition-info"  style="display: none;">
+    <p><span style="color: #EB6AC2; font-weight: 600">Інфраструктурний капітал</span> є базовим для міста та описує сукупність умов, в яких розгоратається креативний потенціал. Це фізичні об’єкти, а також механізми, що уможливлюють процес обігу і конвертації капіталів. Ключовими тут є такі показники, як: законодавча система, індекс сприйняття корупції, толерантність і свобода самовираження, наявність і якість публічного простору, заклади культури і освіти (взяті передусім як приміщення і матеріально-технічна база), фінансова інфраструктура. </p>
+    <p><b>Теми капіталу:</b> Система правосуддя / Боротьба з корупцією / Свобода слова / Свобода самовираження / Інформаційні та комунікаційні технології / Комунальні споруди / Громадські місця / Публічні простори / Заклади культури / Сервісні центри / Центри соціального обслуговування / Екологічні проєкти / Урбаністичні проєкти / Архітектурні проєкти / Рекреаційні споруди / Туризм</p>
+  </div>
+
+
+<div id="cultural" class="addition-info"  style="display: none;">
+    <p><span style="color: #5CE577; font-weight: 600">Культурний капітал</span> – продукти працівників культурних та креативних індустрій, а також цінності та творчі практики, що змінюють моделі поведінки і дають змогу переосмислювати і дизайнувати життєвий досвід. Наприклад, до таких практик належать читання, відвідання музеїв, концертів, вистав, участь у фестивалях, майстер-класах та інших інтерактивних подіях. Цей вид капіталу також визначає, яким чином у суспільстві відбувається обіг решти капіталів, адже йдеться про систему неформальних правил, які переважно є сильнішими за формальне законодавство.</p>
+    <p><b>Теми капіталу:</b> Переклад / Музика / Відео / Анімація / Дизайн / Кіно / Вистава / Перфоманс / Візуальне мистецтво / Арт-об'єкти / Фестивалі / Виставки / Ландшафтний дизайн / Мурали / Хеппенінг / Мистецька акція / Культурна спадщина / Дослідницькі експедиції / Документальні фільми / Ремесла / Гастрономічні та кулінарні витребеньки / Прикраси / Одяг / Культура та освітній туризм</p>
+</div>
+
+<div id="human" class="addition-info"  style="display: none;">
+    <p><span style="color: #EAEDA0; font-weight: 600">Людський капітал</span> – це знання і навички та їх втілення у різних сферах життя. Цей вид капіталу проявляється через різні форми освіти і самоосвіти, розробки і дослідження (R&D), що здійснюються відповідними лабораторіями чи центрами як навчальними закладами, так і підприємствами.</p>
+    <p><b>Теми капіталу:</b> Освіта і навички / Дослідження / Дослідницькі центри / Фаблаби і центри ремісництва / Аналітичні центри / Інноваційні лабораторії / Інкубатори / Стартапи / Креативні хаби / Профорієнтація / Психічне здоров’я / Професійні подорожі / Акселератори підприємництва</p>
+</div>
+
+<div id="social" class="addition-info"  style="display: none;">
+    <p><span style="color: #4A80FF; font-weight: 600">Соціальний капітал</span> – довіра, соціальна справедливість, взаємопідтримка участь. Проявляється через програми інклюзії для залучення містян до розв’язання проблем міста та доброчинність.</p>
+    <p><b>Теми капіталу:</b> Робота з вразливими групами / Інклюзивнсіть / Толернатність / Права людини / Самовираження / Підвищення довіри / Підтримка інституцій / Спільнодія та кооперація / Культура дарування / Залученість / Підсилення впливу / Інтеграція / Культурний обмін / Розвиток громад / Соціальний бізнес </p>
+</div>
+
 
 <!-- Scripts -->
+<script src="lib/jquery-3.3.1.js"></script>
 <script src="lib/d3v5.min.js"></script>
 <script src="lib/underscore-min.js"></script>
 <script src="lib/rSlider.js"></script>
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+<script src="https://unpkg.com/tippy.js@6"></script>
 <!--<script src="lib/jquery.dataTables.min.js"></script>-->
 
 <!--<script src="js/main.js"></script>-->
@@ -107,6 +174,17 @@
 
 
 <script>//обрані роки
+
+const infrastructure = document.getElementById('infrastructure');
+const cultural = document.getElementById('cultural');
+const human = document.getElementById('human');
+const social = document.getElementById('social');
+
+tippy('#infrastructure-button', { content: infrastructure.innerHTML, allowHTML: true, maxWidth: 350, placement: 'bottom', trigger: 'click' });
+tippy('#cultural-button', { content: cultural.innerHTML, allowHTML: true,maxWidth: 350,  placement: 'bottom', trigger: 'click' });
+tippy('#human-button', { content: human.innerHTML, allowHTML: true, maxWidth: 350,  placement: 'bottom', trigger: 'click'});
+tippy('#social-button', { content: social.innerHTML, allowHTML: true, maxWidth: 350,  placement: 'bottom', trigger: 'click' });
+
 
 const formatValue = d3.format(".2s");
 
