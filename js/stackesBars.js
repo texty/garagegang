@@ -74,13 +74,16 @@ d3.csv("data/data.csv").then(function(csv){
         //прибираємо поле успішні/неуспішні для громадського бюджету, міняємо years range на слайдері
         if(platform_type != "Краудфандинг") {
             $("#status_type").css("display", "none");
-            status_type = "Успішний";
+            $('#status_type option[value=Успішний]').prop('selected', true);
+
             mySlider.destroy();
             createSlider(2016, 2021);
         } else {
+            $('#status_type option[value=Успішний]').prop('selected', true);
             $("#status_type").css("display", "inline-block");
             mySlider.destroy();
             createSlider(2012, 2021);
+
         }
 
         change_checkList(platform_or_location);
@@ -156,7 +159,7 @@ d3.csv("data/data.csv").then(function(csv){
         } else {
             $(".selectBox select").addClass("warning");
         }
-        console.log("My favourite sports are: " + favorite.join(", "));
+        // console.log("My favourite sports are: " + favorite.join(", "));
     });
 
 
