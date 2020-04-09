@@ -371,4 +371,36 @@ ul.pagination li.active {
       border: 1px solid white;
       color: white; }
 
+select {
+  text-align-last: center;
+  margin: 0;
+  background: none;
+  border: 1px solid transparent;
+  outline: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  /* Remove select styling */
+  appearance: none;
+  -webkit-appearance: none;
+  font-family: helvetica, sans-serif;
+  font-weight: bold;
+  color: #444;
+  padding: 2px;
+  line-height: 1; }
+
+select::after {
+  content: "";
+  position: absolute;
+  width: 9px;
+  height: 8px;
+  top: 50%;
+  right: 1em;
+  margin-top: -4px;
+  background-image: url(http://filamentgroup.com/files/select-arrow.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  z-index: 2;
+  pointer-events: none; }
+
 /*# sourceMappingURL=styles.css.map */

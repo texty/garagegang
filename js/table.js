@@ -12,7 +12,7 @@ const drawTable = function (targetData, value_type, odd_fill) {
     var amount = value_type === "engaged_number"? "К-ть голосів" : "Бюджет, грн";    
 
     const tableHead = table.append('thead'),
-        tableBody = table.append('tbody');
+          tableBody = table.append('tbody');
 
 
     tableHead.append('tr').selectAll('th')
@@ -54,7 +54,7 @@ const drawTable = function (targetData, value_type, odd_fill) {
          .remove();
 
      var trnum = 0;
-     var maxRows = 20;
+     var maxRows = 25;
 
      var totalRows = $(table + ' tbody tr').length; // numbers of rows
      $(table + ' tr').each(function() {

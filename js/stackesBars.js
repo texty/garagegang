@@ -61,6 +61,8 @@ d3.csv("data/data.csv").then(function(csv){
 
     //коли міняємо платформу
     $("#platform_type").on('change', function(){
+        $('#status_type option[value=Успішний]').prop('selected', true);
+        status_type = "Успішний";
         //не показувати таблицю, бо ще нічого не клікнуто
         istable = false;
 
@@ -74,18 +76,14 @@ d3.csv("data/data.csv").then(function(csv){
         //прибираємо поле успішні/неуспішні для громадського бюджету, міняємо years range на слайдері
         if(platform_type != "Краудфандинг") {
             $("#status_type").css("display", "none");
-            $('#status_type option[value=Успішний]').prop('selected', true);
-
             mySlider.destroy();
             createSlider(2016, 2021);
         } else {
-            $('#status_type option[value=Успішний]').prop('selected', true);
             $("#status_type").css("display", "inline-block");
             mySlider.destroy();
             createSlider(2012, 2021);
 
         }
-
         change_checkList(platform_or_location);
         
         removeTable();
@@ -100,11 +98,13 @@ d3.csv("data/data.csv").then(function(csv){
 
     //коли міняємо інші селекти
     $('.heading-select:not(#platform_type)').on('change', function() {
+
         //перевизначаємо змінні
         value_type = $("#value_type").children("option:selected").val();
         status_type = $("#status_type").children("option:selected").val();
         percents_or_absolutes = $("#percents_or_absolutes").children("option:selected").val();
 
+        console.log($("#status_type").children("option:selected").val());
         //дані ВКЛЮЧАЮТЬ FAVORITES, тобто можна дивиитись інші параметри для вже обраних міст/платформ
         var dataData;
         if(favorite && favorite.length > 0){
@@ -124,6 +124,7 @@ d3.csv("data/data.csv").then(function(csv){
 
     //якщо переключаємо успішні/неуспішні проекти, таблицю видаляємо, бо змінились проекти
     $('#status_type').on('change', function() {
+        status_type = $("#status_type").children("option:selected").val(),
         removeTable();
     });
 
