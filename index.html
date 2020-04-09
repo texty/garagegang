@@ -48,7 +48,6 @@
 <body>
 
 <main>
-
     <h1>Платформи
         <select id="platform_type" class="heading-select">
             <option value="Краудфандинг">краудфандингові</option>
@@ -93,8 +92,6 @@
                     <button id="checked-platforms" type="button">OK</button>
                 </div>
             </div>
-            <!---->
-
         </form>
         <div id="capital-legend">
             <ul id="legend">
@@ -102,24 +99,24 @@
                 <li style="color: #5CE577">Культурний <span id="cultural-button">&#x24D8;</span></li>
                 <li style="color: #EAEDA0">Людський <span id="human-button">&#x24D8;</span></li>
                 <li style="color: #4A80FF">Соціальний <span id="social-button">&#x24D8;</span></li>
-
             </ul>
         </div>
     </div>
 
     <div id="chart-wrapper">
+        <!-- графік-->
         <div id="chart">
             <svg></svg>
         </div>
+        <!-- таблиця -->
         <div>
             <h3 class="table-title subtitle"></h3>
             <table id="table"></table>
             <p class="hint" style="width: 50%; margin: auto; color:#3FA9F5; font-size: 18px; text-align: center">Клікніть на стовбичк зліва, щоб побачиити тут проєкти обраного міста/платформи</p>
             <div class='pagination-container' >
-                <ul class="pagination">
-                </ul>
+                <ul class="pagination"></ul>
             </div>
-        </div>
+        </div> <!-- end of table -->
     </div>
 </main>
 
@@ -136,6 +133,8 @@
     </div>
 </section>
 
+
+<!-- tippy content -->
 <div id="infrastructure" class="addition-info"  style="display: none;">
     <p><span style="color: #EB6AC2; font-weight: 600">Інфраструктурний капітал</span> є базовим для міста та описує сукупність умов, в яких розгоратається креативний потенціал. Це фізичні об’єкти, а також механізми, що уможливлюють процес обігу і конвертації капіталів. Ключовими тут є такі показники, як: законодавча система, індекс сприйняття корупції, толерантність і свобода самовираження, наявність і якість публічного простору, заклади культури і освіти (взяті передусім як приміщення і матеріально-технічна база), фінансова інфраструктура. </p>
     <p><b>Теми капіталу:</b> Система правосуддя / Боротьба з корупцією / Свобода слова / Свобода самовираження / Інформаційні та комунікаційні технології / Комунальні споруди / Громадські місця / Публічні простори / Заклади культури / Сервісні центри / Центри соціального обслуговування / Екологічні проєкти / Урбаністичні проєкти / Архітектурні проєкти / Рекреаційні споруди / Туризм</p>
@@ -166,14 +165,13 @@
 <script src="lib/popper.min.js"></script>
 <script src="lib/tippy-bundle.umd.js"></script>
 <!--<script src="lib/jquery.dataTables.min.js"></script>-->
-
 <!--<script src="js/main.js"></script>-->
 <!--<script src="js/barcharts.js"></script>-->
 <script src="js/stackesBars.js"></script>
 <script src="js/table.js"></script>
 
 
-<script>//обрані роки
+<script>
 
 const infrastructure = document.getElementById('infrastructure');
 const cultural = document.getElementById('cultural');
@@ -187,30 +185,19 @@ tippy('#social-button', { content: social.innerHTML, allowHTML: true, maxWidth: 
 
 
 const formatValue = d3.format(".2s");
+var expanded = false;
 
-
-    var expanded = false;
-
-    function showCheckboxes() {
-        var checkboxes = document.getElementById("checkboxes");
-        if (!expanded) {
-            $(".selectBox select").removeClass("warning");
-            checkboxes.style.display = "block";
-            expanded = true;
-        } else {
-            checkboxes.style.display = "none";
-            expanded = false;
-        }
+function showCheckboxes() {
+    var checkboxes = document.getElementById("checkboxes");
+    if (!expanded) {
+        $(".selectBox select").removeClass("warning");
+        checkboxes.style.display = "block";
+        expanded = true;
+    } else {
+        checkboxes.style.display = "none";
+        expanded = false;
     }
-
-    $("#toggle-nav").on("click", function(){
-        $(this).find("i").toggleClass("fa-times");
-        $(this).find("i").toggleClass("fa-plus");
-        $(".accordion").toggleClass("display-none");
-
-    })
-
-
+}
 </script>
 
 
