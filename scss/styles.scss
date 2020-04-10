@@ -91,6 +91,7 @@ select.heading-select::after {
   position: relative;
   display: grid;
   grid-template-columns: 170px auto;
+  grid-template-rows: 30px 30px auto;
   color: #1381B5;
   align-items: flex-end;
   align-content: space-between;
@@ -99,6 +100,7 @@ select.heading-select::after {
   }
 
   .subtitle {
+    align-self:center;
     margin: 0;
     grid-row:1/2;
     grid-column:2/3;
@@ -163,10 +165,14 @@ select.heading-select::after {
     grid-row: 2/3;
     width: 98%;
     text-align: left;
-    //margin: 20px 0;
     color: $light-blue;
     background-color: #0D263C;
     border: 1px solid $light-blue;
+    align-self:center;
+    min-height: 25px;
+    @media(max-width: 812px){
+      margin: 20px 0;
+    }
   }
 
   .warning {
