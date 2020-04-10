@@ -41,7 +41,7 @@ $('#select-all').click(function(e) {
 });
 
 
-d3.csv("data/data_new.csv").then(function(csv){
+d3.csv("data/data.csv").then(function(csv){
     //перелік унікальних назв платформ
     var platform_list  = [...new Set(csv.filter(function(d){
             return d.platform_type === "Краудфандинг" && d.status  === "Успішний"}).map(function(d) { return d["platform"] }))];
