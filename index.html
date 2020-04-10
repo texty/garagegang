@@ -88,11 +88,14 @@
                 </div>
                 <div id="checkboxes">
                     <label style="margin-bottom: 10px; font-weight: bold">
+
                         <input name='select-all' type='checkbox' id='select-all' value='select-all'/>Обрати всі</label>
-                    <button id="checked-platforms" type="button">OK</button>
+
                 </div>
+
             </div>
         </form>
+        <button id="checked-platforms" type="button">Застосувати</button>
         <div id="capital-legend">
             <ul id="legend">
                 <li style="color: #EB6AC2">Інфраструктурний <span id="infrastructure-button">&#x24D8;</span></li>
@@ -109,7 +112,7 @@
             <svg></svg>
         </div>
         <!-- таблиця -->
-        <div>
+        <div id="table-wrapper">
             <h3 class="table-title subtitle"></h3>
             <table id="table"></table>
             <p class="hint" style="width: 50%; margin: auto; color:#3FA9F5; font-size: 18px; text-align: center">Клікніть на стовбичк зліва, щоб побачиити тут проєкти обраного міста/платформи</p>
@@ -183,11 +186,10 @@ tippy('#cultural-button', { content: cultural.innerHTML, allowHTML: true,maxWidt
 tippy('#human-button', { content: human.innerHTML, allowHTML: true, maxWidth: 350,  placement: 'bottom', trigger: 'click'});
 tippy('#social-button', { content: social.innerHTML, allowHTML: true, maxWidth: 350,  placement: 'bottom', trigger: 'click' });
 
-var selects = document.querySelectorAll('select');
+var selects = document.querySelectorAll('select.heading-select');
 for (var i = 0; i < selects.length; i++) {
     changeWidth(selects[i]);
     selects[i].addEventListener('change', function(e) {
-        console.log(e.target);
         changeWidth(e.target)
     });
 }

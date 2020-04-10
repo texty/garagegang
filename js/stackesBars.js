@@ -46,6 +46,8 @@ d3.csv("data/data.csv").then(function(csv){
     var platform_list  = [...new Set(csv.filter(function(d){
             return d.platform_type === "Краудфандинг" && d.status  === "Успішний"}).map(function(d) { return d["platform"] }))];
 
+    console.log(platform_list);
+
     //перелік унікальних назв міст
     var location_list =   [...new Set(csv.filter(function(d){
             return d.platform_type != "Краудфандинг" && d.status  === "Успішний"}).map(function(d) { return d["location"] }))];
@@ -170,18 +172,23 @@ d3.csv("data/data.csv").then(function(csv){
     /* функція зміни чеклисту*/
     function change_checkList(value) {
         $("label.platform").remove();
-        var select = d3.select("#checkboxes");
+        var checkList = value == "platform" ? platform_list : location_list;
 
-        var options = select.selectAll("label")
-            .data(value == "platform" ? platform_list : location_list);
+        // var options = select.selectAll("label")
+        //     .data(value == "platform" ? platform_list : location_list);
 
-        options
-            .enter()
-            .insert("label", "button")
-            .attr("class", "platform")
-            .html(function (d) {
-                return "<input name='platform' type='checkbox' id='one' value='" + d + "' />" + d + "</label>"
-            });
+        for(var li in checkList){
+            $("#checkboxes").append("<label class='platform'><input name='platform' type='checkbox' id='one' value='" + checkList[li] + "' />" + checkList[li] + "</label>")
+        }
+
+        // options
+        //     .enter()
+        //     .append("label")
+        //     .attr("class", "platform")
+        //     .html(function (d, i) {
+        //         console.log(d, i);
+        //         return "<input name='platform' type='checkbox' id='one' value='" + d + "' />" + d + "</label>"
+        //     });
     }
 
     
