@@ -1,5 +1,6 @@
 
-var sortAscending = true;
+var sortBudget = false;
+var sortVoices = false;
 var table = d3.select("#table");
 var rows;
 
@@ -7,21 +8,24 @@ var rows;
 const drawTable = function (targetData, value_type, odd_fill) {
 
     d3.select("tbody").remove();
-    d3.select("thead").remove();
+    // d3.select("thead").remove();
     
-    var amount = value_type === "engaged_number"? "К-ть голосів" : "Бюджет, грн";    
+    //const tableHead = table.append('thead'),
+    const tableBody = table.append('tbody');
 
-    const tableHead = table.append('thead'),
-          tableBody = table.append('tbody');
-
-
-    tableHead.append('tr').selectAll('th')
-        .data(["Назва проекту", amount, "Рік"]).enter()
-        .append('th')
-        .attr("data-th",function (d) {
-                return d
-        })
-        .text(function (d) { return d; });
+    //
+    // tableHead.append('tr').selectAll('th')
+    //     .data(["Назва проекту", "Бюджет, грн", "К-ть голосів", "Рік"]).enter()
+    //     .append('th')
+    //     .attr("data-th",function (d) {
+    //             return d
+    //     })
+    //     .attr("class", function (d) {
+    //         if (d === "К-ть голосів" || d === "Бюджет, грн") {
+    //             return "headerSortDown";
+    //         }
+    //     })
+    //     .text(function (d) {  return d ; });
 
     rows = tableBody.selectAll('tr')
         .data(targetData).enter()
@@ -29,20 +33,60 @@ const drawTable = function (targetData, value_type, odd_fill) {
 
     rows.append("td")
         .attr("data-th", "Назва")
-        .text(function (d) { return d.title.replace('^"', ''); });
+        .html(function (d) { return "<a class='project-id' href='" + d.id + "' target='_blank' >" +d.title.replace('^"', ''); + "</a>"});
 
     rows.append('td')
-        .attr("data-th", amount)
-        .text(function (d) { return formatValue(d[value_type]);  });
+        .attr("data-th", "Бюджет, грн")
+        .text(function (d) { return formatValue(d.collected_amount);  });
+
+    rows.append('td')
+        .attr("data-th", "К-ть голосів")
+        .text(function (d) { return formatValue(d.engaged_number);  });
 
     rows.append('td')
         .attr("data-th", "Рік")
         .attr("class", "year")
-        .text(function (d) { return d.any_date; });
+        .text(function (d) { return d.year; });
 
     $("tbody > tr:nth-child(odd)").css("background-color", odd_fill);
 
+    $("thead > tr > th:nth-child(2)").on("click", function(){
+        $(this).toggleClass("headerSortUp").toggleClass("headerSortDown");
+        $("tbody tr").attr('style', null);
+
+        rows.sort(function(a, b){
+            if(sortBudget === true){
+                return +b.collected_amount - +a.collected_amount;
+            } else {
+                return +a.collected_amount - +b.collected_amount;
+            }
+
+        });
+        sortBudget = !sortBudget;
+        $("tbody > tr:nth-child(odd)").css("background-color", odd_fill);
+        getPagination('table');
+    });
+
+    $("thead > tr > th:nth-child(3)").on("click", function(){
+        $(this).toggleClass("headerSortUp").toggleClass("headerSortDown");
+        $("tbody tr").attr('style', null);
+        rows.sort(function(a, b){
+            if(sortVoices === true){
+                return +b.engaged_number - +a.engaged_number;
+            } else {
+                return +a.engaged_number - +b.engaged_number;
+            }
+
+        });
+        sortVoices = !sortVoices;
+        $("tbody > tr:nth-child(odd)").css("background-color", odd_fill);
+        getPagination('table');
+    });
+
+
     getPagination('table');
+
+
 };
 
 
@@ -54,7 +98,7 @@ const drawTable = function (targetData, value_type, odd_fill) {
          .remove();
 
      var trnum = 0;
-     var maxRows = 25;
+     var maxRows = 15;
 
      var totalRows = $(table + ' tbody tr').length; // numbers of rows
      $(table + ' tr').each(function() {
@@ -82,7 +126,7 @@ const drawTable = function (targetData, value_type, odd_fill) {
          evt.preventDefault();
          var pageNum = $(this).attr('data-page');
 
-         var maxRows = 20;
+         // var maxRows = 15;
 
          if (pageNum == 'prev') {
              if (lastPage == 1) {
