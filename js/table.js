@@ -50,44 +50,40 @@ const drawTable = function (targetData, value_type, odd_fill) {
 
     $("tbody > tr:nth-child(odd)").css("background-color", odd_fill);
 
-    $("thead > tr > th:nth-child(2)").on("click", function(){
-        $(this).toggleClass("headerSortUp").toggleClass("headerSortDown");
-        $("tbody tr").attr('style', null);
-
-        rows.sort(function(a, b){
-            if(sortBudget === true){
-                return +b.collected_amount - +a.collected_amount;
-            } else {
-                return +a.collected_amount - +b.collected_amount;
-            }
-
-        });
-        sortBudget = !sortBudget;
-        $("tbody > tr:nth-child(odd)").css("background-color", odd_fill);
-        getPagination('table');
-    });
-
-    $("thead > tr > th:nth-child(3)").on("click", function(){
-        $(this).toggleClass("headerSortUp").toggleClass("headerSortDown");
-        $("tbody tr").attr('style', null);
-        rows.sort(function(a, b){
-            if(sortVoices === true){
-                return +b.engaged_number - +a.engaged_number;
-            } else {
-                return +a.engaged_number - +b.engaged_number;
-            }
-
-        });
-        sortVoices = !sortVoices;
-        $("tbody > tr:nth-child(odd)").css("background-color", odd_fill);
-        getPagination('table');
-    });
-
 
     getPagination('table');
 
 
 };
+
+$("thead > tr > th:nth-child(2)").on("click", function(){
+    console.log(this);
+    $(this).toggleClass("headerSortUp").toggleClass("headerSortDown");
+    $("tbody tr").attr('style', null);
+    console.log(sortBudget);
+    if(sortBudget === true){
+        rows.sort(function(a, b){   return +b.collected_amount - +a.collected_amount; })
+    } else {
+        rows.sort(function(a, b){  return +a.collected_amount - +b.collected_amount;   })
+    }
+    sortBudget = !sortBudget;
+    $("tbody > tr:nth-child(odd)").css("background-color", odd_fill);
+    getPagination('table');
+});
+
+$("thead > tr > th:nth-child(3)").on("click", function(){
+    $(this).toggleClass("headerSortUp").toggleClass("headerSortDown");
+    $("tbody tr").attr('style', null);
+    console.log(sortVoices);
+    if(sortVoices === true){
+        rows.sort(function(a, b){   return +b.engaged_number - +a.engaged_number; })
+    } else {
+        rows.sort(function(a, b){  return +a.engaged_number - +b.engaged_number;   })
+    }
+    sortVoices = !sortVoices;
+    $("tbody > tr:nth-child(odd)").css("background-color", odd_fill);
+    getPagination('table');
+});
 
 
  function getPagination(table) {

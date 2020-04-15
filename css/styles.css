@@ -210,7 +210,7 @@ path.domain, g.tick line {
   stroke: #1381B5; }
 
 g.tick text {
-  font-size: 16px;
+  font-size: 15px;
   fill: #3FA9F5; }
 
 .multiple .axis-hint {
