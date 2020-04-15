@@ -174,12 +174,16 @@ d3.csv("data/data.csv").then(function(csv){
         $("label.platform").remove();
         var checkList = value == "platform" ? platform_list : location_list;
 
+        checkList.sort(function(a,b) { console.log(a); return d3.ascending(a, b)});
+
+
         // var options = select.selectAll("label")
         //     .data(value == "platform" ? platform_list : location_list);
 
         for(var li in checkList){
             $("#checkboxes").append("<label class='platform'><input name='platform' type='checkbox' id='one' value='" + checkList[li] + "' />" + checkList[li] + "</label>")
         }
+
 
         // options
         //     .enter()

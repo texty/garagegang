@@ -136,6 +136,8 @@ select.heading-select {
     }
 
     #checkboxes {
+      //height: 150px;
+      //overflow-y: auto;
       background-color: $background_blue;
       color: $light-blue;
       padding: 5px 0;
