@@ -130,15 +130,6 @@ d3.csv("data/data.csv").then(function(csv){
         removeTable();
     });
 
-    //якщо переключаємо кількість голосів/бюджет таблицю перемальовуємо
-    // d3.select('#value_type').on('change', function() {
-    //     if(istable){
-    //         $(".hint").css("display", "none");
-    //         drawTable(table_data, value_type, odd_fill)
-    //     }
-    // });
-
-
     /* ----- FILTER ON CHANGE  ------- */
     //реакція на фільтр, малюємо обрані обрані міста/платформи
     $("button#checked-platforms").click(function(){
