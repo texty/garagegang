@@ -126,7 +126,7 @@ d3.csv("data/data.csv").then(function(csv){
 
     //якщо переключаємо успішні/неуспішні проекти, таблицю видаляємо, бо змінились проекти
     $('#status_type').on('change', function() {
-        status_type = $("#status_type").children("option:selected").val(),
+        status_type = $("#status_type").children("option:selected").val();
         removeTable();
     });
 
