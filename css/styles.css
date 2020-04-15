@@ -71,7 +71,7 @@ select.heading-select {
   display: grid;
   grid-template-columns: 190px auto;
   grid-template-rows: 30px 30px auto;
-  color: #1381B5;
+  color: #3FA9F5;
   align-items: flex-end;
   align-content: space-between; }
   @media (max-width: 812px) {
@@ -82,6 +82,10 @@ select.heading-select {
     margin: 0;
     grid-row: 1/2;
     grid-column: 2/3; }
+  #legend-wrapper #filter-wrapper {
+    display: grid;
+    grid-template-columns: 75% 20%;
+    position: relative; }
   #legend-wrapper form {
     width: 99%;
     grid-column: 1/2;
@@ -141,7 +145,7 @@ nav {
   background-color: #0D263C;
   padding: 5px;
   height: max-content;
-  color: #1381B5;
+  color: #3FA9F5;
   width: calc(98% - 380px);
   max-width: calc(1420px - 280px);
   margin: 0 auto 50px auto; }
@@ -207,7 +211,7 @@ svg text {
   font-family: "Arial", sans-serif; }
 
 path.domain, g.tick line {
-  stroke: #1381B5; }
+  stroke: #3FA9F5; }
 
 g.tick text {
   font-size: 15px;
@@ -309,7 +313,7 @@ ul.pagination {
 
 ul.pagination li {
   min-width: 30px;
-  background-color: #429ac4;
+  background-color: #3FA9F5;
   color: #0D263C;
   margin: 0 5px;
   text-align: center;
@@ -317,7 +321,7 @@ ul.pagination li {
   list-style-type: none; }
 
 ul.pagination li.active {
-  background-color: #89c0da; }
+  background-color: white; }
 
 .hidden {
   opacity: 0;
