@@ -5,7 +5,7 @@ const color = d3.scaleOrdinal()
     .domain(["Культурний", "Соціальний","Людський", "Інфраструктурний","Економічний"])
     .range(["#5CE577", "#4A80FF", "#EAEDA0", "#EB6AC2", "white"]);
 
-d3.csv("data/data_october_21.csv").then(function(data){
+d3.csv("data/data_oct_21.csv").then(function(data){
     const craudf = data.filter(function(d){ return d.platform_type != "Громадський бюджет"});
     const budget = data.filter(function(d){ return d.platform_type === "Громадський бюджет"});
     
@@ -23,7 +23,7 @@ d3.csv("data/data_october_21.csv").then(function(data){
         target: '#slider',
         values: [2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
         range: true,
-        set: [2016, 2021],
+        set: [2016, 2022],
         width:    null,
         scale:    true,
         labels:   true,

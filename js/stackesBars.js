@@ -2,14 +2,15 @@ const color = d3.scaleOrdinal()
     .domain(["Культурний", "Соціальний", "Людський", "Інфраструктурний"])
     .range(["#EB6AC2", "#5CE577", "#EAEDA0", "#4A80FF"]);
 
-var startYear = '2016',
-    endYear = '2021',
+var startYear = 2016,
+    endYear = 2021,
 
     //значення селектів в заголовку
     platform_type = $("#platform_type").children("option:selected").val(),
     value_type = $("#value_type").children("option:selected").val(),
     status_type = $("#status_type").children("option:selected").val(),
     percents_or_absolutes = $("#percents_or_absolutes").children("option:selected").val(),
+    //platform_or_location = "platform",
     platform_or_location = platform_type === "Краудфандинг" ? "platform" : "location",
 
     //значення додані до фільтру
@@ -41,11 +42,13 @@ $('#select-all').click(function(e) {
 });
 
 
-d3.csv("data/data_october_21.csv").then(function(csv){
+d3.csv("data/data_oct_21.csv").then(function(csv){
 
-      csv.forEach(function(d){
-        d.year = d.start_date.substring(0,4);
+      csv.forEach(function(d){                  
+        d.year = parseInt(d.year);
     }) 
+
+    
 
     //перелік унікальних назв платформ
     var platform_list  = [...new Set(csv.filter(function(d){        
@@ -56,10 +59,15 @@ d3.csv("data/data_october_21.csv").then(function(csv){
             return d.platform_type != "Краудфандинг" && d.status  === "Успішний"}).map(function(d) { return d["location"] }))];
 
     //малюємо дефолтні бари
-    let default_data = csv.filter(function(d){
-        return d.platform_type === "Краудфандинг" &&  d.status === "Успішний" && d.capital != "Економічний" && +d.year >= startYear && +d.year < endYear   });
+    let default_data = csv.filter(function(d){ return d.platform_type === "Краудфандинг" && 
+    d.status === "Успішний" && d.year >= startYear && d.year <= endYear 
+    });
+  
 
-    console.table(default_data)    
+    var set = d3.map(default_data, function(d) { return d.year }).keys();
+    console.log(set)
+
+    console.log(default_data)    
     chart(default_data, value_type, percents_or_absolutes, platform_or_location);
 
 
@@ -78,16 +86,17 @@ d3.csv("data/data_october_21.csv").then(function(csv){
         //змінюємо значення змінної platform_type і platform_or_location змінюється відповідно до неї
         platform_type = $("#platform_type").children("option:selected").val();
         platform_or_location = platform_type === "Краудфандинг" ? "platform" : "location";
+        //platform_or_location = "platform";
 
         //прибираємо поле успішні/неуспішні для громадського бюджету, міняємо years range на слайдері
         if(platform_type != "Краудфандинг") {
             $("#status_type").css("display", "none");
             mySlider.destroy();
-            createSlider(2016, 2021);
+            createSlider(2016, 2022);
         } else {
             $("#status_type").css("display", "inline-block");
             mySlider.destroy();
-            createSlider(2012, 2021);
+            createSlider(2012, 2022);
 
         }
         change_checkList(platform_or_location);
@@ -96,7 +105,7 @@ d3.csv("data/data_october_21.csv").then(function(csv){
 
         //дані НЕ ВКЛЮЧАЮТЬ FAVORITES, бо змінюється платформа
         let dataData = csv.filter(function(d){
-            return d.platform_type === platform_type &&  d.status === status_type && d.capital != "Економічний" && +d.year >= startYear && +d.year < endYear;
+            return d.platform_type === platform_type &&  d.status === status_type && +d.year >= startYear && +d.year < endYear;
         });
         chart(dataData, value_type, percents_or_absolutes, platform_or_location);
     });
@@ -150,7 +159,7 @@ d3.csv("data/data_october_21.csv").then(function(csv){
 
         if(favorite.length > 0) {
             let selected_data = csv.filter(function(d){
-                return d.platform_type === platform_type &&  d.status === status_type && d.capital != "Економічний" && favorite.includes(d[platform_or_location]) && +d.year >= startYear && +d.year < endYear
+                return d.platform_type === platform_type &&  d.status === status_type && favorite.includes(d[platform_or_location]) && +d.year >= startYear && +d.year < endYear
             });
             chart(selected_data, value_type, percents_or_absolutes, platform_or_location);
         } else {
@@ -177,7 +186,7 @@ d3.csv("data/data_october_21.csv").then(function(csv){
 
     
     /* ----- SLIDER  ------ */
-    createSlider(2012, 2021);
+    createSlider(2012, 2022);
 
     function createSlider(minValue, maxValue) {
         mySlider = new rSlider({
@@ -197,11 +206,11 @@ d3.csv("data/data_october_21.csv").then(function(csv){
                 var dataData;
                 if (favorite && favorite.length > 0) {
                     dataData = csv.filter(function (d) {
-                        return d.platform_type === platform_type && d.status === status_type && d.capital != "Економічний" && favorite.includes(d[platform_or_location]) && +d.year >= +startYear && +d.year < +endYear
+                        return d.platform_type === platform_type && d.status === status_type && favorite.includes(d[platform_or_location]) && +d.year >= +startYear && +d.year < +endYear
                     });
                 } else {
                     dataData = csv.filter(function (d) {
-                        return d.platform_type === platform_type && d.status === status_type && d.capital != "Економічний" && +d.year >= +startYear && +d.year < +endYear
+                        return d.platform_type === platform_type && d.status === status_type && +d.year >= +startYear && +d.year < +endYear
                     });
                 }
 
@@ -246,7 +255,7 @@ function chart(data, xValue, scale, yVal) {
                 return a + +b[xValue];
             }, 0);
 
-            console.log(amount);
+            //console.log(amount);
 
             //створюємо частину майбутнього рядку: к-ть голосів або бюджет по поточному капіталу
             var ob = { "capital": capital, "amount": amount };
@@ -393,7 +402,7 @@ function chart(data, xValue, scale, yVal) {
         .transition().duration(500)
         .attr("y", function (d) { return y(d.data.platform); })
         .attr("x", function (d) {
-            console.log(d);
+            //console.log(d);
             return x(d[0]);
         })
         .attr("width", function (d) { return x(d[1]) - x(d[0]);  });
