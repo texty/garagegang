@@ -3,7 +3,7 @@ const color = d3.scaleOrdinal()
     .range(["#EB6AC2", "#5CE577", "#EAEDA0", "#4A80FF"]);
 
 var startYear = '2016',
-    endYear = '2019',
+    endYear = '2021',
 
     //значення селектів в заголовку
     platform_type = $("#platform_type").children("option:selected").val(),
@@ -41,12 +41,15 @@ $('#select-all').click(function(e) {
 });
 
 
-d3.csv("data/data.csv").then(function(csv){
-    //перелік унікальних назв платформ
-    var platform_list  = [...new Set(csv.filter(function(d){
-            return d.platform_type === "Краудфандинг" && d.status  === "Успішний"}).map(function(d) { return d["platform"] }))];
+d3.csv("data/data_october_21.csv").then(function(csv){
 
-    console.log(platform_list);
+      csv.forEach(function(d){
+        d.year = d.start_date.substring(0,4);
+    }) 
+
+    //перелік унікальних назв платформ
+    var platform_list  = [...new Set(csv.filter(function(d){        
+        return d.platform_type === "Краудфандинг" && d.status  === "Успішний"}).map(function(d) { return d["platform"] }))];
 
     //перелік унікальних назв міст
     var location_list =   [...new Set(csv.filter(function(d){
@@ -56,6 +59,7 @@ d3.csv("data/data.csv").then(function(csv){
     let default_data = csv.filter(function(d){
         return d.platform_type === "Краудфандинг" &&  d.status === "Успішний" && d.capital != "Економічний" && +d.year >= startYear && +d.year < endYear   });
 
+    console.table(default_data)    
     chart(default_data, value_type, percents_or_absolutes, platform_or_location);
 
 
@@ -106,8 +110,7 @@ d3.csv("data/data.csv").then(function(csv){
         status_type = $("#status_type").children("option:selected").val();
         percents_or_absolutes = $("#percents_or_absolutes").children("option:selected").val();
 
-        console.log($("#status_type").children("option:selected").val());
-        //дані ВКЛЮЧАЮТЬ FAVORITES, тобто можна дивиитись інші параметри для вже обраних міст/платформ
+       //дані ВКЛЮЧАЮТЬ FAVORITES, тобто можна дивиитись інші параметри для вже обраних міст/платформ
         var dataData;
         if(favorite && favorite.length > 0){
             dataData = csv.filter(function(d){
@@ -219,6 +222,8 @@ function chart(data, xValue, scale, yVal) {
     var platforms  = [...new Set(data.map(function(d) { return d[yVal] }))];
     var capitals  = [...new Set(data.map(function(d) { return d.capital }))];
 
+
+
     //сюди пушимо загальні значення по кожній платформі, щоб потім порахувати d3.max для x-axis
     var all_amounts = [];
 
@@ -240,6 +245,8 @@ function chart(data, xValue, scale, yVal) {
             var amount = filtered.reduce(function(a, b) {
                 return a + +b[xValue];
             }, 0);
+
+            console.log(amount);
 
             //створюємо частину майбутнього рядку: к-ть голосів або бюджет по поточному капіталу
             var ob = { "capital": capital, "amount": amount };
@@ -343,6 +350,7 @@ function chart(data, xValue, scale, yVal) {
         .keys(subgroups)
         (df);
 
+  
     var group = svg.selectAll("g.layer")
         .data(stackedData);
 
@@ -384,7 +392,10 @@ function chart(data, xValue, scale, yVal) {
         })
         .transition().duration(500)
         .attr("y", function (d) { return y(d.data.platform); })
-        .attr("x", function (d) { return x(d[0]); })
+        .attr("x", function (d) {
+            console.log(d);
+            return x(d[0]);
+        })
         .attr("width", function (d) { return x(d[1]) - x(d[0]);  });
 }
 
