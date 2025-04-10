@@ -4,28 +4,8 @@ var table = d3.select("#table");
 var rows;
 
 const drawTable = function (targetData, value_type, odd_fill) {
-  d3.select("tbody").remove();
-  //d3.select(".table tbody").remove();
-
-  ///d3.select("#main-project-table tbody").remove();
-  // d3.select("thead").remove();
-
-  //const tableHead = table.append('thead'),
+  table.select("tbody").remove();
   const tableBody = table.append("tbody");
-
-  //
-  // tableHead.append('tr').selectAll('th')
-  //     .data(["Назва проекту", "Бюджет, грн", "К-ть голосів", "Рік"]).enter()
-  //     .append('th')
-  //     .attr("data-th",function (d) {
-  //             return d
-  //     })
-  //     .attr("class", function (d) {
-  //         if (d === "К-ть голосів" || d === "Бюджет, грн") {
-  //             return "headerSortDown";
-  //         }
-  //     })
-  //     .text(function (d) {  return d ; });
 
   rows = tableBody.selectAll("tr").data(targetData).enter().append("tr");
 
@@ -64,9 +44,9 @@ const drawTable = function (targetData, value_type, odd_fill) {
       return d.year;
     });
 
-  $("tbody > tr:nth-child(odd)").css("background-color", odd_fill);
+  $("#table tbody > tr:nth-child(odd)").css("background-color", odd_fill);
 
-  getPagination("table");
+  getPagination("#table");
 };
 
 $("thead > tr > th:nth-child(2)").on("click", function () {
@@ -85,7 +65,7 @@ $("thead > tr > th:nth-child(2)").on("click", function () {
   }
   sortBudget = !sortBudget;
   $("tbody > tr:nth-child(odd)").css("background-color", odd_fill);
-  getPagination("table");
+  getPagination("#table");
 });
 
 $("thead > tr > th:nth-child(3)").on("click", function () {
@@ -103,21 +83,18 @@ $("thead > tr > th:nth-child(3)").on("click", function () {
   }
   sortVoices = !sortVoices;
   $("tbody > tr:nth-child(odd)").css("background-color", odd_fill);
-  getPagination("table");
+  getPagination("#table");
 });
 
 function getPagination(table) {
   var lastPage = 1;
-  $(".pagination")
-    .find("li")
-    // .slice(1, -1)
-    .remove();
+  $(".pagination").find("li").remove();
 
   var trnum = 0;
   var maxRows = 15;
 
-  var totalRows = $(table + " tbody tr").length; // numbers of rows
-  $(table + " tr").each(function () {
+  var totalRows = $(table + " > tbody > tr").length; // numbers of rows
+  $(table + " > tbody > tr").each(function () {
     trnum++;
     if (trnum > maxRows) {
       $(this).hide();
@@ -146,8 +123,6 @@ function getPagination(table) {
     evt.preventDefault();
     var pageNum = $(this).attr("data-page");
 
-    // var maxRows = 15;
-
     if (pageNum == "prev") {
       if (lastPage == 1) {
         return;
@@ -166,7 +141,7 @@ function getPagination(table) {
     $(".pagination li").removeClass("active");
     $('.pagination [data-page="' + lastPage + '"]').addClass("active");
     limitPagging();
-    $(table + " tr:gt(0)").each(function () {
+    $(table + " > tbody > tr").each(function () {
       trIndex++;
       if (
         trIndex > maxRows * pageNum ||

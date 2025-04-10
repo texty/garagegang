@@ -368,11 +368,11 @@ th:nth-child(3) {
   width: 40%;
 }
 
-tbody > tr:nth-child(even) td {
+#table tbody > tr:nth-child(even) td {
   color: #3fa9f5 !important;
 }
 
-tbody > tr:nth-child(odd) td {
+#table tbody > tr:nth-child(odd) td {
   border-top: 1px solid #3fa9f5;
   color: #0d263c;
 }
@@ -438,40 +438,33 @@ ul.pagination li.active {
 
 @media only screen and (max-width: 760px),
   (min-device-width: 768px) and (max-device-width: 1024px) {
-  table,
-  thead,
-  tbody,
-  th,
-  td,
-  tr {
+  table:not(#simple-table),
+  table:not(#simple-table) thead,
+  table:not(#simple-table) tbody,
+  table:not(#simple-table) th,
+  table:not(#simple-table) td,
+  table:not(#simple-table) tr {
     display: block;
   }
 
-  table td:nth-child(1) {
-    text-align: left;
-  }
-
-  tr {
+  table:not(#simple-table) tr {
     border: 1px solid #ccc;
   }
 
-  td {
+  table:not(#simple-table) td {
     border: none;
     position: relative;
     text-align: left !important;
     padding-left: 50% !important;
   }
 
-  td:before {
+  table:not(#simple-table) td:before {
     position: absolute;
     top: 6px;
     left: 6px;
     width: 45%;
     padding-right: 10px;
     white-space: nowrap;
-  }
-
-  td:before {
     content: attr(data-th) ": ";
     font-weight: bold;
     width: 6.5em;
@@ -644,36 +637,42 @@ article blockquote {
 }
 
 /* New styles for the simple table */
-table.simple-table {
+#simple-table {
   width: 100%;
   border-collapse: collapse;
   margin: 2em 0;
   font-size: 16px;
-  color: #ffffff;
+  color: #ffffff !important;
   background-color: transparent;
 }
 
-table.simple-table th,
-table.simple-table td {
+#simple-table th,
+#simple-table td {
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   padding: 10px;
   text-align: left;
   vertical-align: top;
 }
 
-table.simple-table th {
+#simple-table th {
   font-weight: 600;
   color: #3fa9f5;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
-table.simple-table tr:last-child td {
+#simple-table tr:last-child td {
   border-bottom: none;
 }
 
-table.simple-table tbody tr:nth-child(even) {
-  background-color: rgba(255, 255, 255, 0.02);
+#simple-table ul {
+  list-style-type: disc; /* стандартні круглі маркери */
+  padding-left: 20px; /* додає відступ для відображення маркерів */
+  margin-left: 0;
+}
+
+#simple-table ul li {
+  display: list-item; /* забезпечує, що елементи списку ведуть себе як стандартні елементи списку */
 }
 
 /*# sourceMappingURL=styles.css.map */
