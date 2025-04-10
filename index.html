@@ -54,14 +54,93 @@
     />
     <link rel="stylesheet" href="css/rSlider.css" />
     <link rel="stylesheet" href="css/styles.css" />
+
+     <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EXHPRQFFLB"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-EXHPRQFFLB');
+    </script>
+
+    <!-- Meta Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '528421947990222');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=528421947990222&ev=PageView&noscript=1" /></noscript>
+    <!-- End Meta Pixel Code -->
   </head>
   <body>
-    <div class="heading-select">
-      Гривнею та голосом. Як українці підтримують проєкти розвитку через
+    <!-- HEADER -->
+    <header>
+        <a class="texty-logo" href="/">
+            <img class="desktop-only" src="https://texty.org.ua/static/core/images/logo_texty_black.svg"
+                alt="Тексти.org.ua">
+            <img class="mobile-only" src="https://texty.org.ua/static/core/images/white_logo.svg" alt="Тексти.org.ua">
+        </a>
+
+        <nav class="rubrics-container">
+            <div class="rubric r1"><a href="https://texty.org.ua/tag/khid-vijny/"
+                    class="special-devil-animation"><span>Хід Війни</span></a></div>
+            <div class="rubric r2"><a href="https://texty.org.ua/tag/dezinformatsija/"><span>#Інфовійна</span></a></div>
+            <div class="rubric r2"><a href="https://texty.org.ua/tag/eng/"><span>#English</span></a></div>
+            <div class="rubric r5"><a href="https://texty.org.ua/articles/"><span>Статті</span></a></div>
+            <div class="rubric r6"><a href="https://texty.org.ua/fragments/"><span>Фрагменти</span></a></div>
+            <div class="rubric r7"><a href="https://texty.org.ua/selected/"><span>Вибір редакції</span></a></div>
+
+            <div class="rubric r-burger">
+                <input id="menu__toggle" type="checkbox">
+                <label class="menu__btn" for="menu__toggle">
+                    <span></span>
+                </label>
+
+                <div class="menu__box">
+                    <ul class="items__container">
+                        <li class="mobile-only"><a class="menu__item" href="https://texty.org.ua/tag/khid-vijny/">Хід
+                                Війни</a></li>
+                        <li class="mobile-only"><a class="menu__item"
+                                href="https://texty.org.ua/tag/dezinformatsija/">#Інфовійна</a></li>
+                        <li class="mobile-only"><a class="menu__item" href="https://texty.org.ua/tag/eng/">#English</a>
+                        </li>
+
+                        <li><a class="menu__item" href="https://texty.org.ua/projects/">Журналістика даних</a></li>
+                        <li><a class="menu__item" href="https://texty.org.ua/articles/">Статті</a></li>
+                        <li><a class="menu__item" href="https://texty.org.ua/fragments/">Фрагменти</a></li>
+                        <li><a class="menu__item" href="https://texty.org.ua/selected/">Вибір редакції</a></li>
+                        <li><a class="menu__item" href="https://texty.org.ua/donate/#/">Наш Дата-Арт</a></li>
+                        <li><a class="menu__item" href="https://texty.org.ua/texty.org.ua/d/principles/">Принципи</a>
+                        </li>
+                        <li><a class="menu__item" href="https://texty.org.ua/tag/hrafik-dnja/">Графік дня</a></li>
+                    </ul>
+                </div>
+
+            </div>
+            <div id="search" class="rubric"></div>
+        </nav>
+    </header>
+    <h1  class="main-title">
+      Гривнею та голосом. <br />
+      Як українці підтримують проєкти розвитку через
       онлайн-платформи
-    </div>
+    </h1>
+
     <article>
-      <p>
+      <p style="color: #5ce577;">
         Перед вами матеріал, який ми планували опублікувати у березні 2022 року.
         Це дослідження українських онлайн-платформ краудфандингу та бюджету
         участі, на яких люди та команди мали можливість залучати фінансування на
@@ -239,7 +318,7 @@
       </ul>
       <h2>Краудфандинг: переваги і обмеження</h2>
 
-      <table id="simple-table">
+      <table class="simple-table">
         <thead>
           <tr>
             <th>Переваги</th>
@@ -602,7 +681,7 @@
         проєктів на українських платформах. Відповідно до кожного капіталу було
         підібрано категорії проєктів, що впливають на той чи інший капітал.
       </p>
-      <table id="simple-table">
+      <table class="simple-table transpose-table">
   <thead>
     <tr>
       <th>Капітал</th>
