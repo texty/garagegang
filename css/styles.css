@@ -569,7 +569,7 @@ article {
   max-width: 900px;
   margin: 60px auto;
   line-height: 1.7;
-  font-size: 18px;
+  font-size: calc(20px + 0.1vw);
   font-family: "Arial", sans-serif;
 }
 
