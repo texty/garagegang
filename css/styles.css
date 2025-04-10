@@ -314,7 +314,7 @@ g.tick text {
   text-align: center;
 }
 
-table {
+#table {
   font-size: 16px;
   width: 100%;
   color: #3fa9f5;
@@ -358,12 +358,12 @@ th:nth-child(3) {
   padding-right: 5px;
 }
 
-table td {
+#table td {
   padding: 5px;
   text-align: center;
 }
 
-table td:nth-child(1) {
+#table td:nth-child(1) {
   text-align: left;
   width: 40%;
 }
@@ -598,30 +598,6 @@ article blockquote {
   margin: 1em 0;
 }
 
-.comparison-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 2rem;
-}
-
-.comparison-table th,
-.comparison-table td {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 1rem;
-  vertical-align: top;
-  text-align: left;
-}
-
-.comparison-table th {
-  font-size: 1.2rem;
-  color: #409aff;
-  font-weight: 600;
-}
-
-.comparison-table {
-  background: rgba(255, 255, 255, 0.05);
-}
-
 .accordion-content.hidden {
   display: none;
 }
@@ -665,6 +641,39 @@ article blockquote {
 .bibliography a:hover {
   text-decoration: underline;
   background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* New styles for the simple table */
+table.simple-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2em 0;
+  font-size: 16px;
+  color: #ffffff;
+  background-color: transparent;
+}
+
+table.simple-table th,
+table.simple-table td {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 10px;
+  text-align: left;
+  vertical-align: top;
+}
+
+table.simple-table th {
+  font-weight: 600;
+  color: #3fa9f5;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+table.simple-table tr:last-child td {
+  border-bottom: none;
+}
+
+table.simple-table tbody tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.02);
 }
 
 /*# sourceMappingURL=styles.css.map */
